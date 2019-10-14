@@ -6,6 +6,6 @@ source $THIS_SCRIPT_PATH/../setup_env.sh
 \cp $THIS_SCRIPT_PATH/.zshrc ~/
 \cp $THIS_SCRIPT_PATH/.zprofile ~/
 # dein.vimのPluginファイルのコピー
-\cp -r $THIS_SCRIPT_PATH/.zsh/ ~/
+\cp -pr $THIS_SCRIPT_PATH/.zsh/ ~/
 
 exit $?
