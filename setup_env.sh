@@ -102,26 +102,26 @@ has() {
 # 動作中のログを表示する際に色をつけて表示する
 ########################################################
 # 水色
-run () {
+run_print () {
   printf "\e[36m run\t: $1  \e[0m\n"
 }
 
 # 黄色
-skip() {
+skip_print() {
   printf "\e[33m skip\t: $1  \e[0m\n"
 }
 
 # 紫色
-log() {
+log_print() {
   printf "\e[35m log\t: $1  \e[0m\n"
 }
 
 # 緑色
-ok() {
+ok_print() {
   printf "\e[32m ok\t: $1  \e[0m\n"
 }
 # 赤色
-error() {
+error_print() {
   printf "\e[31m fail\t: $1  \e[0m\n"
 }
 

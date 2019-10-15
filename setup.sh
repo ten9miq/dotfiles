@@ -8,8 +8,8 @@ dists=('vim' 'zsh' 'bash' 'shell_common' 'tmux' 'ssh' 'bin' 'git' 'etc' 'fish')
 for e in ${dists[@]}; do
   for script in $PROJECT_PATH/$e/*.sh; do
     if [ -f $script ]; then
-      run $script
-      bash $script && ok "$script" || error "$script" &
+      run_print $script
+      bash $script && ok_print "$script" || error_print "$script" &
     else
       continue
     fi

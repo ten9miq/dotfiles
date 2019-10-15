@@ -12,7 +12,7 @@ do
   relative_path=${find_path##$THIS_SCRIPT_PATH/}
   # コピー先のディレクトリがなければ作成する
   mkdir -p $copy_target/$(dirname $relative_path);
-  log "etc file copy:$find_path"
+  log_print "etc file copy:$find_path"
   cp $find_path $copy_target/$relative_path;
 done
 
