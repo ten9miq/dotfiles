@@ -1,23 +1,4 @@
 #---------------------------------------------------------------
-# SSHログイン時にtmuxを自動で開くようにする
-#---------------------------------------------------------------
-if which tmux >/dev/null 2>&1; then
-  #if not inside a tmux session, and if no session is started, start a new session
-  if test -z "$TMUX"; then
-    if ! $(tmux attach); then
-      tmux new-session
-    fi
-  fi
-fi
-
-#---------------------------------------------------------------
-# tmuxのhostごとにstatus lineの色を変える
-#---------------------------------------------------------------
-if ! [ "$TMUX" = "" ]; then
-    tmux set-option status-bg $(perl -MList::Util=sum -e'print+(red,green,blue,yellow,cyan,magenta,white)[sum(unpack"C*",shift)%7]' $(hostname)) | cat > /dev/null
-fi
-
-#---------------------------------------------------------------
 # SSH AGENT SETTINGS
 # クライアントのLinuxの場合にssh-agentを共通で使う
 # https://www8281uo.sakura.ne.jp/blog/?p=617
@@ -60,3 +41,21 @@ if [ -d $SSH_DIR ];then
 fi
 unset SSH_DIR
 
+#---------------------------------------------------------------
+# SSHログイン時にtmuxを自動で開くようにする
+#---------------------------------------------------------------
+if which tmux >/dev/null 2>&1; then
+  #if not inside a tmux session, and if no session is started, start a new session
+  if test -z "$TMUX"; then
+    if ! $(tmux attach); then
+      tmux new-session
+    fi
+  fi
+fi
+
+#---------------------------------------------------------------
+# tmuxのhostごとにstatus lineの色を変える
+#---------------------------------------------------------------
+if ! [ "$TMUX" = "" ]; then
+    tmux set-option status-bg $(perl -MList::Util=sum -e'print+(red,green,blue,yellow,cyan,magenta,white)[sum(unpack"C*",shift)%7]' $(hostname)) | cat > /dev/null
+fi
