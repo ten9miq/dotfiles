@@ -20,12 +20,16 @@
   quotepath = false
   autocrlf = input
 
+[pager]
+  branch = false
+
 [color]
   status = auto
   diff = auto
   branch = auto
   interactive = auto
   grep = auto
+  ui = auto
 
 [push]
   # https://qiita.com/awakia/items/6aaea1ffecba725be601
