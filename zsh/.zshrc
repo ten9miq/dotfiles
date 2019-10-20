@@ -51,10 +51,6 @@ REPORTTIME=3
 ## 「/」も単語区切りとみなす。
 WORDCHARS=${WORDCHARS:s,/,,}
 
-# プロンプト上でのコマンドなどのシンタックスハイライトを有効にする
-[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] \
-  && source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 # デフォルトだとmainのみだけなので、他のシンタックスハイライトを有効にする
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
@@ -67,10 +63,6 @@ ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red') # 注意が必要な
 
 # 括弧のシンタックスハイライトの色を見やすい青系に
 ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=027,bold'
-
-# コマンド入力中にサジェストを表示する
-[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] \
-  && source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # -----------------------------
 # Prompt
@@ -331,50 +323,25 @@ setopt hist_save_no_dups
 [ -f ~/.config/shell_common/functions.bash ] && source ~/.config/shell_common/functions.bash
 
 # 補完ファイルの再読み込みプラグインの読み込み
-if [ -d ~/.zsh/zload/ ]; then
-  fpath=(~/.zsh/zload(N-/) $fpath)
-  autoload -Uz zload
-  # zsh-completion-generatorとzloadの組み合わせで1コマンドで補完を生成し読み込む
-  gcomp(){
-    gencomp $@
-    zload $GENCOMPL_FPATH/_*
-  }
+gcomp(){
+  gencomp $@
+  zload $GENCOMPL_FPATH/_*
+}
 
-  gcomp_all(){
-    for p in $path; do command -p ls $p; done |\
-        uniq |\
-        { while read c; do gencomp $c; done }
-    zload $GENCOMPL_FPATH/_*
-  }
-fi
+gcomp_all(){
+  for p in $path; do command -p ls $p; done |\
+      uniq |\
+      { while read c; do gencomp $c; done }
+  zload $GENCOMPL_FPATH/_*
+}
 
 # -----------------------------
 # Completion
 # -----------------------------
-# 補完ファイルの読み込み
-if [ -e ~/.zsh/completions ]; then
-  fpath=(~/.zsh/completions $fpath)
-fi
-if [ -e ~/.zsh/zsh-completions/src ]; then
-  fpath=(~/.zsh/zsh-completions/src $fpath)
-fi
-# getoptスタイルのヘルプテキストから補完関数を自動的に生成するプラグイン
-if [ -f ~/.zsh/zsh-completion-generator/zsh-completion-generator.plugin.zsh ]; then
-  export GENCOMPL_FPATH=$HOME/.zsh/zsh-completion-generator/generation_completion/ # 生成先
-  source ~/.zsh/zsh-completion-generator/zsh-completion-generator.plugin.zsh
-fi
-
-# fzfのAuto-completion
-[[ $- == *i* ]] && source "$HOME/.config/shell_common/.fzf/shell/completion.zsh" 2> /dev/null
 
 # 自動補完を有効にする
 # これはほかの補完ファイルを読み込んだ後に実行しないと意味がない
-if [ $(uname -r | grep -i microsoft) ] ; then
-  # wslの場合あまりにも遅いので補完ファイルのセキュアリードオプションを無効化する
-  autoload -Uz compinit ; compinit -C
-else
-  autoload -Uz compinit ; compinit
-fi
+autoload -Uz compinit ; compinit
 
 # 単語の入力途中でもTab補完を有効化
 setopt complete_in_word
@@ -473,9 +440,6 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
-# fzfのKey bindings
-source "$HOME/.config/shell_common/.fzf/shell/key-bindings.zsh"
-
 # 補完候補のメニュー選択で、矢印キーの代わりにhjklで移動出来るようにする。
 zmodload zsh/complist
 #bindkey -M menuselect '^i' vi-backward-char # 左
@@ -512,26 +476,6 @@ setopt chase_dots
 setopt pushd_to_home
 # cdで移動後に省略lsを実行する(10行を超える内容の時lsの表示内容を前後10行だけに絞る)
 chpwd() { ls_abbrev }
-# cdを移動を便利にするenhancdを追加
-# compinitのあとでないとcomdefのエラーを吐く
-if [ -f ~/.zsh/enhancd/init.sh ]; then
-  source ~/.zsh/enhancd/init.sh
-fi
-
-# 現在のディレクトリがgitリポジトリの時そのディレクトリのrootへ移動する
-if [ -d ~/.zsh/cd-gitroot/ ]; then
-  fpath=(~/.zsh/cd-gitroot(N-/) $fpath)
-  autoload -Uz cd-gitroot
-  alias cdu='cd-gitroot'
-fi
-
-# -----------------------------
-# プラグインによる機能追加
-# -----------------------------
-# gomiコマンドでゴミ箱に移動するプラグイン
-if [ -f ~/.zsh/zsh-gomi/gomi.zsh ]; then
-  source ~/.zsh/zsh-gomi/gomi.zsh
-fi
 
 # -----------------------------
 # alias
