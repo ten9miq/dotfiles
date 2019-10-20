@@ -32,7 +32,7 @@ zplug "zsh-users/zsh-completions"
 # 入力中の文字に応じて灰色の文字でコマンド候補を表示してくれる
 zplug "zsh-users/zsh-autosuggestions"
 # コマンド入力中に上キーや下キーを押した際の履歴の検索を使いやすくする
-zplug "zsh-users/zsh-history-substring-search", hook-build:"__zsh_version 4.3"
+zplug "zsh-users/zsh-history-substring-search", if:"[[ __zsh_version > 4.3 ]]"
 # コマンドのシンタックスハイライト
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 # cdコマンドをfzfなどと組み合わせ便利にする
