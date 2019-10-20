@@ -46,8 +46,8 @@ function fish_prompt --description 'Write out the prompt'
                 end
             end
 
-            #printf '%s@%s %s%s%s# ' $USER (prompt_hostname) "$__fish_prompt_cwd" (prompt_pwd) "$__fish_prompt_normal"
-            printf '%s%s%s@%s%s %s%s\r\f%s[%s]%s[%s] %s$%s ' "$__fish_color_usrename" $USER "$__fish_color_attmark" "$__fish_color_hostname" (prompt_hostname) "$__fish_prompt_cwd" "$PWD"\
+            printf '%s%s%s@%s%s %s%s\r\f%s[%s]%s[%s] %s$%s ' "$__fish_color_usrename" $USER "$__fish_color_attmark" "$__fish_color_hostname" (prompt_hostname) "$__fish_prompt_cwd" (prompt_pwd)\
+             $__fish_color_shlvl $SHLVL "$__fish_color_datetime" (date "+%y/%m/%d %H:%M:%S") "$__fish_color_status" "$__fish_prompt_normal"
 
         case '*'
 
@@ -55,7 +55,7 @@ function fish_prompt --description 'Write out the prompt'
                 set -g __fish_prompt_cwd $__fish_color_cwd_bule
             end
 
-            printf '%s%s%s@%s%s %s%s\r\f%s[%s]%s[%s] %s$%s ' "$__fish_color_usrename" $USER "$__fish_color_attmark" "$__fish_color_hostname" (prompt_hostname) "$__fish_prompt_cwd" "$PWD"\
+            printf '%s%s%s@%s%s %s%s\r\f%s[%s]%s[%s] %s$%s ' "$__fish_color_usrename" $USER "$__fish_color_attmark" "$__fish_color_hostname" (prompt_hostname) "$__fish_prompt_cwd" (prompt_pwd)\
              $__fish_color_shlvl $SHLVL "$__fish_color_datetime" (date "+%y/%m/%d %H:%M:%S") "$__fish_color_status" "$__fish_prompt_normal"
 
     end
