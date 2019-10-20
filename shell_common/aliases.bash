@@ -1,6 +1,7 @@
 # bashコマンド
 alias v='vim'
 alias vi='vim'
+alias l='\ls'
 alias ls='\ls -AXFhv --group-directories-first --color=auto'
 alias ll='\ls -lXFhv --group-directories-first --color=auto'
 alias la='\ls -alXFhv --group-directories-first --color=auto'
