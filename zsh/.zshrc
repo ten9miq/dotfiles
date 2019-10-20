@@ -8,8 +8,18 @@
 #export LESSCHARSET=utf-8
 
 # -----------------------------
+# default keybind
+# -----------------------------
+# bindkey -d  # いったんキーバインドをリセット
+bindkey -e  # emacsモードで使う
+# bindkey -a  # vicmdモード
+# bindkey -v # viinsモード
+
+# -----------------------------
 # General
 # -----------------------------
+# エディタをvimに設定
+export EDITOR=vim
 # 色を使用
 autoload -Uz colors ; colors
 autoload -Uz add-zsh-hook
@@ -422,13 +432,6 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31
 # -----------------------------
 # KeyBind
 # -----------------------------
-# エディタをvimに設定
-export EDITOR=vim
-bindkey -d  # いったんキーバインドをリセット
-bindkey -e  # emacsモードで使う
-# bindkey -a  # vicmdモード
-# bindkey -v # viinsモード
-
 bindkey '\C-j' backward-word
 bindkey '\C-g' forward-word
 # esc+hで単語単位での削除
@@ -482,6 +485,9 @@ chpwd() { ls_abbrev }
 # -----------------------------
 # aliasの読み込み
 [ -f ~/.config/shell_common/aliases.bash ] && source ~/.config/shell_common/aliases.bash
+
+# zshのcd-gitrootのalias
+alias cdu='cd-gitroot'
 
 # それぞれのaliasに対応
 # setopt no_complete_aliasesでalisaを展開したあととして補完が対応できるはずだが
