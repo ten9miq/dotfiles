@@ -148,9 +148,6 @@ local LIGHTBLUE=$'%{\e[1;36m%}'
 local WHITE=$'%{\e[1;37m%}'
 local DEFAULT=$'%{\e[1;m%}'
 
-# 補完候補にLS_COLORSと同じ色をつける
-autoload -U colors ; colors ; zstyle ':completion:*' list-colors "${LS_COLORS}"
-
 # zshのの利用可能な色の一覧表示
 zsh_color(){
   for c in {000..255}; do echo -n "\e[38;5;${c}m $c" ; [ $(($c%16)) -eq 15  ] && echo;done;echo"]"
@@ -441,7 +438,8 @@ zstyle ':completion:*' menu select=2
 # zstyle ':completion:*' menu select interactive
 # キャッシュの利用による補完の高速化
 zstyle ':completion::complete:*' use-cache true
-#zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# 補完候補にLS_COLORSと同じ色をつける
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # 大文字・小文字を区別しない(大文字を入力した場合は区別する)
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 # manの補完をセクション番号別に表示させる
