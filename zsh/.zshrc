@@ -423,6 +423,8 @@ setopt interactive_comments
 setopt globdots
 # aliasを展開して補完を行う
 setopt no_complete_aliases
+# 補完時に文字列末尾へカーソル移動
+setopt always_to_end
 # aliasが展開されていない状態で補完を行う
 # setopt complete_aliases
 
@@ -448,6 +450,14 @@ zstyle ':completion:*:manuals' separate-sections true
 zstyle ':completion:*' list-separator '-->'
 # 詳細な情報を使う。
 zstyle ':completion:*' verbose yes
+# 補完するときに、ただ補完候補を出すだけでなく、コマンドの文脈に応じて何の補完をするか表示してくれます
+# _complete - 普通の補完関数
+# _approximate - ミススペルを訂正した上で補完を行う。
+# _match - *などのグロブによってコマンドを補完できる(例えばvi* と打つとviとかvimとか補完候補が表示される)
+# _expand - グロブや変数の展開を行う。もともとあった展開と比べて、細かい制御が可能
+# _history - 履歴から補完を行う。_history_complete_wordから使われる
+# _prefix - カーソルの位置で補完を行う
+zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
 # 補完時のメッセージの色設定
 zstyle ':completion:*:descriptions' format $GREEN'completing %B%d%b'$DEFAULT
 zstyle ':completion:*:messages' format $LIGHTBLUE'%d'$DEFAULT
@@ -462,6 +472,12 @@ zstyle ':completion:*' group-name ''
 # cd ../の時に今いるディレクトリを補完候補から外す
 zstyle ':completion:*' ignore-parents parent pwd ..
 
+# 候補を更新日時でソートする デフォルトはアルファベット順にソート
+# zstyle ':completion:*' file-sort modification
+# 補完時にディレクトリを先に表示する
+zstyle ':completion:*' list-dirs-first true
+# cd時の補完の並び
+zstyle ':completion:*:cd:*' tag-order local-directories path-directories
 # sudo の後ろでコマンド名を補完する
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
                    /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
