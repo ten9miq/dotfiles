@@ -7,10 +7,4 @@ source $THIS_SCRIPT_PATH/../setup_env.sh
 \cp $THIS_SCRIPT_PATH/.zprofile ~/
 \cp -r $THIS_SCRIPT_PATH/.zsh/ ~/
 
-if [ ! -d $HOME/.zplug/ ]; then
-  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-else
-  log_print "$HOME/.zplug already exist!"
-fi
-
 exit $?
