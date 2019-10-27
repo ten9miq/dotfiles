@@ -51,6 +51,8 @@ export GENCOMPL_FPATH=$HOME/.zsh/complete
 zplug "RobSis/zsh-completion-generator", if:"which python"
 # fzfの補完とキーバインドを追加
 zplug "junegunn/fzf", use:"shell/*.zsh", defer:2, lazy:false
+# ファイルとディレクトリに少しの色といくつかのgitステータス情報を追加します。
+zplug "supercrabtree/k"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
