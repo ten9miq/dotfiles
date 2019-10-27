@@ -45,7 +45,7 @@ zplug "mollifier/cd-gitroot"
 # 補完の動的再読み込みを行う
 zplug "mollifier/zload"
 # rmの代替として.gomiフォルダにゴミを捨てる(If fzf is already installed)
-zplug "b4b4r07/zsh-gomi", if:"which fzf"
+zplug "b4b4r07/zsh-gomi", if:"which fzf", lazy:false
 # コマンドの-hで表示されるもので補完ファイルを生成する
 export GENCOMPL_FPATH=$HOME/.zsh/complete
 zplug "RobSis/zsh-completion-generator", if:"which python"
