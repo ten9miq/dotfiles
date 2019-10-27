@@ -31,15 +31,15 @@ source ~/.zplug/init.zsh # zplugを使う
 # zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 # 補完の強化。
-zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-completions", use:'src/_*'
 # 入力中の文字に応じて灰色の文字でコマンド候補を表示してくれる
 zplug "zsh-users/zsh-autosuggestions"
 # コマンド入力中に上キーや下キーを押した際の履歴の検索を使いやすくする
 zplug "zsh-users/zsh-history-substring-search", if:"[[ __zsh_version > 4.3 ]]"
 # コマンドのシンタックスハイライト
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "zsh-users/zsh-syntax-highlighting", defer:2, lazy:false
 # cdコマンドをfzfなどと組み合わせ便利にする
-zplug "b4b4r07/enhancd", use:init.sh
+zplug "b4b4r07/enhancd", use:init.sh, defer:2, lazy:false
 # gitリポジトリ内に居る時にリポジトリのルートに移動する
 zplug "mollifier/cd-gitroot"
 # 補完の動的再読み込みを行う
@@ -47,9 +47,10 @@ zplug "mollifier/zload"
 # rmの代替として.gomiフォルダにゴミを捨てる(If fzf is already installed)
 zplug "b4b4r07/zsh-gomi", if:"which fzf"
 # コマンドの-hで表示されるもので補完ファイルを生成する
-zplug "RobSis/zsh-completion-generator", if:"GENCOMPL_FPATH=$HOME/.zsh/complete"
+export GENCOMPL_FPATH=$HOME/.zsh/complete
+zplug "RobSis/zsh-completion-generator", if:"which python"
 # fzfの補完とキーバインドを追加
-zplug "junegunn/fzf", use:"shell/*.zsh", defer:2
+zplug "junegunn/fzf", use:"shell/*.zsh", defer:2, lazy:false
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
