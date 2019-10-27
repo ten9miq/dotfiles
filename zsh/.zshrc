@@ -22,6 +22,9 @@ if [ ! -d ~/.zplug/ ]; then
   git clone https://github.com/zplug/zplug ~/.zplug
 fi
 
+zstyle :zplug:tag depth 1
+zstyle :zplug:tag lazy true
+
 export ZPLUG_HOME=$HOME/.zplug/
 source ~/.zplug/init.zsh # zplugを使う
 # 自分自身をプラグインとして管理
