@@ -8,7 +8,7 @@ alias la='\ls -alXFhv --group-directories-first --color=auto'
 alias cp='cp -i'        # -i    コピー時に上書きされるファイルがある場合、確認が入る。
 alias mv='mv -i'        # -i    移動時に上書きされるものがある場合、確認が入る。
 alias rm='rm -i'        # -i    ファイルの削除前に確認が入る。
-alias sudo='sudo '
+alias sudo='sudo '      # sudoのあとのaliasを展開するようにするために追加
 alias sv='sudo_vim'
 alias svi='sudo_vim'
 alias hg='history | grep'
@@ -53,7 +53,7 @@ alias dl="docker container ls"
 # List containers including stopped containers
 alias dla="docker container ls --all"
 # Get the latest container ID  old:docker ps --latest --quiet
-alias dlate="dl --latest --quiet"
+alias dlate="docker container ls --latest --quiet"
 
 ### docker image
 # List images  old:docker ps
@@ -61,7 +61,7 @@ alias di="docker image ls"
 # List images including intermediates
 alias dia="docker image ls --all"
 # Get the latest image ID
-alias dilate="di | head -n 2 | tail -n 1 | awk '{print \$3}'"
+alias dilate="docker image ls | head -n 2 | tail -n 1 | awk '{print \$3}'"
 
 # Get an IPaddress of a container
 alias dip="docker container inspect --format '{{ .NetworkSettings.IPAddress }}'"
@@ -84,11 +84,11 @@ alias drm='docker_container_remove'
 # Remove image id argment or latest image
 alias dirm='docker_image_remove'
 # Remove all containers  old:docker rm $(docker ps --all --quiet)
-alias drma='docker container rm $(da --quiet)'
+alias drma='docker container rm $(docker container ls --all --quiet)'
 # Remove all images  old:docker rmi $(docker images --quiet)
-alias dirma='docker image rm $(dia --quiet)'
+alias dirma='docker image rm $(docker image ls --all --quiet)'
 # Remove all containers and images by force
-alias dclean='docker container stop $(da --quiet); docker container kill $(da --quiet); drma; dirma;'
+alias dclean='docker container stop $(docker container ls --quiet); docker container kill $(docker container ls --all --quiet); drma; dirma;'
 # or docker system prune
 
 # docker image to dockerfile
