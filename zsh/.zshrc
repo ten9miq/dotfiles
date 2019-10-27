@@ -1,5 +1,8 @@
 # zshの起動処理の速度調査の実行
 # zmodload zsh/zprof && zprof
+zshtime(){
+  for i in $(seq 1 5); do time zsh -ic exit; done
+}
 
 # -----------------------------
 # Lang
