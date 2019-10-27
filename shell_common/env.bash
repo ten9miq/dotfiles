@@ -13,11 +13,6 @@ export LS_COLORS='di=01;96:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 export FZF_COMPLETION_TRIGGER="**" # default: '**'
 
-# fzfのファイル類のパスを追加
-if [[ ! "$PATH" == *$HOME/.config/shell_common/.fzf/bin* ]]; then
-   export PATH="${PATH:+${PATH}:}$HOME/.config/shell_common/.fzf/bin"
-fi
-
 #---------------------------------------------------------------
 # lessの設定
 #---------------------------------------------------------------
