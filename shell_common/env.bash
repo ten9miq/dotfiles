@@ -5,7 +5,7 @@ export TERM=xterm-256color
 export PATH="$PATH:$HOME/bin"
 
 # ファイル・ディレクトリ等の色の設定(BSD用)
-export LSCOLORS=Exfxcxdxbxegedabagacad
+export LSCOLORS=fxExcxdxbxegedabagacad
 # ファイル・ディレクトリ等の色の設定(GNU用)
 export LS_COLORS='di=01;96:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
