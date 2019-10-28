@@ -564,6 +564,11 @@ alias -g G='| grep'
 alias -g GI='| grep -ri'
 alias -g S='sudo '
 
+# zshのcompinit時のパーミッションのエラー修復
+compinit_fix(){
+  compaudit | xargs chmod go-w
+}
+
 # グローバルエイリアスを展開する
 # http://blog.patshead.com/2012/11/automatically-expaning-zsh-global-aliases---simplified.html
 globalias() {
