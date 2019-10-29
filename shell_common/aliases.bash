@@ -15,6 +15,10 @@ alias hg='history | grep'
 alias g='git'
 alias sg="sudo_git"
 
+sudof(){
+  sudo zsh -c "$functions[$1]" "$@"
+}
+
 sudo_git(){
   sudo git -c 'include.path='"${XDG_CONFIG_DIR:-$HOME/.config}"'/git/config' -c 'include.path='"${HOME}/.gitconfig" $@
 }
@@ -47,7 +51,9 @@ alias dc="docker-compose"
 alias sd="sudo docker"
 alias sdc="sudo docker-compose"
 
-### docker container
+#------------------------------------------------
+# docker list segments command
+#------------------------------------------------
 # List containers  old:docker ps
 alias dl="docker container ls"
 # List containers including stopped containers
@@ -63,42 +69,63 @@ alias dia="docker image ls --all"
 # Get the latest image ID
 alias dilate="docker image ls | head -n 2 | tail -n 1 | awk '{print \$3}'"
 
-# Get an IPaddress of a container
-alias dip="docker container inspect --format '{{ .NetworkSettings.IPAddress }}'"
+#------------------------------------------------
+# docker run command
+#------------------------------------------------
 # Run a daemonized container
 alias drd="docker container run --detach"
 # Runa deamonized container exited to container remove
-alias drdr="docker container run --detach --rm"
-# Run an interactive container exited to container remove
-alias dritr="docker container run --rm --interactive --tty"
-# Run a daemonized container   --publish-all    Publish all exposed ports to random ports
-alias drdpa="docker container run --detach --publish-all"
+alias drdrm="docker container run --detach --rm"
 # Run an interactive container
 alias drit="docker container run --interactive --tty"
+# Run an interactive container exited to container remove
+alias dritrm="docker container run --rm --interactive --tty"
+# Run a daemonized container   --publish-all    Publish all exposed ports to random ports
+alias drdpa="docker container run --detach --publish-all"
 # docker container in bash exec
-alias ded="docker_exec_bash"
+alias de="docker container exec -it"
+# 一番新しいコンテナへ入る
+alias del='docker container exec -it $(docker container ls --latest --quiet 2>/dev/null \
+  || sudo docker container ls --latest --quiet)'
 
-### docker remove command
+#------------------------------------------------
+# docker remove command
+#------------------------------------------------
 # Remove container id argment or latest container
-alias drm='docker_container_remove'
+alias drm="docker container rm"
+# REmove latest container
+alias drml='docker container rm $(docker container ls --latest --quiet 2>/dev/null \
+  || sudo docker container ls --latest --quiet)'
+
 # Remove image id argment or latest image
-alias dirm='docker_image_remove'
+alias dirm='docker image rm'
+# Remove latest image
+alias dirml='docker image rm $(docker image ls | head -n 2 | tail -n 1 | awk "{print \$3}" 2>/dev/null || \
+  sudo docker image ls | head -n 2 | tail -n 1 | awk "{print \$3}")'
+
 # Remove all containers  old:docker rm $(docker ps --all --quiet)
 alias drma='docker container rm $(docker container ls --all --quiet)'
 # Remove all images  old:docker rmi $(docker images --quiet)
 alias dirma='docker image rm $(docker image ls --all --quiet)'
 # Remove all containers and images by force
-alias dclean='docker container stop $(docker container ls --quiet); docker container kill $(docker container ls --all --quiet); drma; dirma;'
-# or docker system prune
+alias dallclean='docker container stop $(docker container ls --quiet); \
+  docker container kill $(docker container ls --all --quiet); drma; dirma;'
+# 停止コンテナ、タグ無しイメージ、未使用ボリューム、未使用ネットワーク一括削除 ver >=1.13
+alias dprune='docker system prune'
 
-# docker image to dockerfile
-alias dih="docker_image_history"
+#------------------------------------------------
+# docker other command
+#------------------------------------------------
+# Get an IPaddress of a container
+alias dip="docker container inspect --format '{{ .NetworkSettings.IPAddress }}'"
 # is me add docker group  don't need sudo docker command
 alias dockerGroupAdd='docker_group_add'
 # List all aliases relating to docker
 dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)='\(.*\)'/\1    => \2/"| sed "s/'\\\'//g"; }
 # docker image all update
 alias diupdate="sudo docker images | cut -d ' ' -f1 | tail -n +2 | sort | uniq | egrep -v '^(<none>|ubuntu)$' | xargs -P0 -L1 sudo docker pull"
+# docker image to dockerfile
+alias dih="docker_image_history"
 
 docker_image_history(){
   if [ "$1" != "" ]; then
@@ -117,31 +144,4 @@ docker_group_add(){
   sudo systemctl restart docker # dockerの再起動
   echo "グループ適用のためログアウトします｡"
   exit
-}
-
-docker_container_remove(){
-  if [ "$1" = "" ]; then
-    # 引数なしの場合一番新しいのを削除
-    docker container rm $(dlate)
-  else
-    docker container rm $1
-  fi
-}
-
-docker_image_remove(){
-  if [ "$1" = "" ]; then
-    # 引数なしの場合一番新しいのを削除
-    docker image rm $(dilate)
-  else
-    docker image rm $1
-  fi
-}
-
-docker_exec_bash() {
-  if [ "$1" = "" ]; then
-    # 引数なしの場合一番新しいイメージの中に入る
-    docker container exec -it $(dlate) /bin/bash
-  else
-    docker container exec -it $1 /bin/bash
-  fi
 }
