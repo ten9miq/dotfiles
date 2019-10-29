@@ -36,7 +36,7 @@ zplugin light zsh-users/zsh-history-substring-search # , if:"[[ __zsh_version > 
 # コマンドのシンタックスハイライト
 zplugin light zsh-users/zsh-syntax-highlighting
 # cdコマンドをfzfなどと組み合わせ便利にする
-zplugin light b4b4r07/enhancd
+zplugin ice silent pick"init.sh"; zplugin load "b4b4r07/enhancd"
 # gitリポジトリ内に居る時にリポジトリのルートに移動する
 zplugin light mollifier/cd-gitroot
 # 補完の動的再読み込みを行う
@@ -46,7 +46,7 @@ zplugin light b4b4r07/zsh-gomi
 # コマンドの-hで表示されるもので補完ファイルを生成する
 zplugin light RobSis/zsh-completion-generator # , if:"GENCOMPL_FPATH=$HOME/.zsh/complete"
 # fzfの補完とキーバインドを追加
-zplugin ice lucid wait'0c' multisrc"shell/{completion,key-bindings}.zsh" \
+zplugin ice lucid multisrc"shell/{completion,key-bindings}.zsh" \
   id-as"junegunn/fzf_completions" pick"/dev/null";
 zplugin light junegunn/fzf
 
