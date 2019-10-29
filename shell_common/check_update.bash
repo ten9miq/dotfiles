@@ -21,15 +21,20 @@ else
     # Linuxの場合~/dotfile/の更新がないかチェックし、更新あればgit pullしてsetup.shを実行する
     if [ -d $HOME/dotfiles ]; then
       \cd $HOME/dotfiles
-      git fetch -p
-      git checkout -q master
-      latest_rev=$(git ls-remote origin HEAD | awk '{print $1}')
-      current_rev=$(git rev-parse HEAD)
-      if [ "$latest_rev" != "$current_rev" ]; then
-        # 最新じゃない場合には更新処理を行う
-        git reset --hard $(git log --pretty=format:%H | head -1)
-        git pull
-        ./setup.sh
+      branch_name=`git rev-parse --abbrev-ref HEAD`||exit
+      if [ ${branch_name} = 'master'  ]; then
+        git fetch -p
+        git checkout -q master
+        latest_rev=$(git ls-remote origin HEAD | awk '{print $1}')
+        current_rev=$(git rev-parse HEAD)
+        if [ "$latest_rev" != "$current_rev" ]; then
+          # 最新じゃない場合には更新処理を行う
+          git reset --hard $(git log --pretty=format:%H | head -1)
+          git pull
+          ./setup.sh
+        fi
+      else
+        echo "dotfile not master branch."
       fi
       \cd -
     fi
