@@ -44,12 +44,13 @@ zplugin light mollifier/zload
 # rmの代替として.gomiフォルダにゴミを捨てる(If fzf is already installed)
 zplugin light b4b4r07/zsh-gomi
 # コマンドの-hで表示されるもので補完ファイルを生成する
-zplugin light RobSis/zsh-completion-generator # , if:"GENCOMPL_FPATH=$HOME/.zsh/complete"
+zplugin ice has'python'; zplugin light RobSis/zsh-completion-generator # , if:"GENCOMPL_FPATH=$HOME/.zsh/complete"
 # fzfの補完とキーバインドを追加
 zplugin ice lucid multisrc"shell/{completion,key-bindings}.zsh" \
   id-as"junegunn/fzf_completions" pick"/dev/null";
 zplugin light junegunn/fzf
 
+#autoload -Uz compinit; compinit
 # -----------------------------
 # General
 # -----------------------------
