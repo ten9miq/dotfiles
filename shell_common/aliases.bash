@@ -104,13 +104,14 @@ alias dirml='docker image rm $(docker image ls | head -n 2 | tail -n 1 | awk "{p
   sudo docker image ls | head -n 2 | tail -n 1 | awk "{print \$3}")'
 
 # Remove all containers  old:docker rm $(docker ps --all --quiet)
-alias drma='docker container rm $(docker container ls --all --quiet)'
+alias drma='docker container rm $(docker container ls --all --quiet 2>/dev/null || sudo docker container ls --all --quiet)'
 # Remove all images  old:docker rmi $(docker images --quiet)
-alias dirma='docker image rm $(docker image ls --all --quiet)'
-# Remove all containers and images by force
-alias dallclean='docker container stop $(docker container ls --quiet); \
-  docker container kill $(docker container ls --all --quiet); drma; dirma;'
-# 停止コンテナ、タグ無しイメージ、未使用ボリューム、未使用ネットワーク一括削除 ver >=1.13
+alias dirma='docker image rm $(docker image ls --all --quiet 2>/dev/null || sudo docker image ls --all --quiet)'
+# Remove all containers and images and other
+alias dallclean='docker container stop $(docker container ls --quiet 2>/dev/null || sudo docker container ls --quiet); \
+  docker container kill $(docker container ls --all --quiet 2>/dev/null || sudo docker container ls --all --quiet); \
+  drma 2>/dev/null || sudo drma; dirma 2>/dev/null || sudo dirma; docker system prune --all || sudo docker system prune --all'
+# 停止コンテナ、タグ無しイメージ、未使用ネットワーク､ビルドキャッシュの一括削除 ver >=1.13
 alias dprune='docker system prune'
 
 #------------------------------------------------
