@@ -47,9 +47,12 @@ sudo_vim(){
 # Docker aliases
 # ------------------------------------
 alias d="docker"
-alias dc="docker-compose"
+alias d-c="docker-compose"
 alias sd="sudo docker"
-alias sdc="sudo docker-compose"
+alias sd-c="sudo docker-compose"
+
+alias dc="docker container"
+alias di="docker image"
 
 #------------------------------------------------
 # docker list segments command
@@ -72,16 +75,16 @@ alias dilate="docker image ls | head -n 2 | tail -n 1 | awk '{print \$3}'"
 #------------------------------------------------
 # docker run command
 #------------------------------------------------
-# Run a daemonized container
-alias drd="docker container run --detach"
-# Runa deamonized container exited to container remove
-alias drdrm="docker container run --detach --rm"
 # Run an interactive container
-alias drit="docker container run --interactive --tty"
+alias dr="docker container run --interactive --tty"
+# Run a daemonized container
+alias drd="docker container run --detach --interactive --tty"
+# Runa deamonized container exited to container remove
+alias drdrm="docker container run --detach --rm --interactive --tty"
 # Run an interactive container exited to container remove
-alias dritrm="docker container run --rm --interactive --tty"
+alias drrm="docker container run --rm --interactive --tty"
 # Run a daemonized container   --publish-all    Publish all exposed ports to random ports
-alias drdpa="docker container run --detach --publish-all"
+alias drdpa="docker container run --detach --publish-all --interactive --tty"
 # docker container in bash exec
 alias de="docker container exec -it"
 # 一番新しいコンテナへ入る
@@ -103,6 +106,12 @@ alias dirm='docker image rm'
 alias dirml='docker image rm $(docker image ls | head -n 2 | tail -n 1 | awk "{print \$3}" 2>/dev/null || \
   sudo docker image ls | head -n 2 | tail -n 1 | awk "{print \$3}")'
 
+alias dcprune='docker container prune'
+alias diprune='docker image prune'
+# 停止コンテナ、タグ無しイメージ、未使用ネットワーク､ビルドキャッシュの一括削除 ver >=1.13
+alias dsprune='docker system prune'
+alias dallprune='docker system prune --all --force'
+
 # Remove all containers  old:docker rm $(docker ps --all --quiet)
 alias drma='docker container rm $(docker container ls --all --quiet 2>/dev/null || sudo docker container ls --all --quiet)'
 # Remove all images  old:docker rmi $(docker images --quiet)
@@ -111,8 +120,6 @@ alias dirma='docker image rm $(docker image ls --all --quiet 2>/dev/null || sudo
 alias dallclean='docker container stop $(docker container ls --quiet 2>/dev/null || sudo docker container ls --quiet); \
   docker container kill $(docker container ls --all --quiet 2>/dev/null || sudo docker container ls --all --quiet); \
   drma 2>/dev/null || sudo drma; dirma 2>/dev/null || sudo dirma; docker system prune --all || sudo docker system prune --all'
-# 停止コンテナ、タグ無しイメージ、未使用ネットワーク､ビルドキャッシュの一括削除 ver >=1.13
-alias dprune='docker system prune'
 
 #------------------------------------------------
 # docker other command
