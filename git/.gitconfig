@@ -62,6 +62,12 @@
   pl = pull
   ps = push
   re = remote
+  # リモートで削除されたブランチをローカルで削除
+  remote-deleted-local-branch-rm = remote prune origin
+  # リモート追跡ブランチを消す
+  remote-deleted-branch-rm = fetch --prune
+  # リモートURLの上書き
+  remote-url-set = remote set-url origin
 
   df = diff
   dc = diff --cached          # addされているものとのdiff
@@ -78,3 +84,6 @@
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   la = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   alias = !"if test -z $1; then loop=; for k in `git config --get-regexp ^alias\\. | sort | sed -e 's/^alias\\.\\(\\S*\\).*/\\1/g'`; do echo -n $k; loop="${loop}1"; if test ${#loop} -lt 5; then echo -n '\t'; else echo; loop=; fi; done; exit; fi; git config --list | grep ^alias\\.$1= | sed -e s/^alias\\.//; exit;"
+
+  # マージ済みブランチ削除
+  delete-merged-branch = "!f () { git branch --merged|egrep -v '\\*|develop|master' | xargs git branch -d; };f"
