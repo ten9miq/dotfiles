@@ -566,9 +566,9 @@ alias -g S='sudo '
 alias -g W='| wc -l' # -l:行単位で数える
 alias -g X='| xargs -i cmd {}' # -i:標準入力を{}と箇所と置換し､個々にcmdの箇所のコマンドを実行する
 alias -g F='find "*" '
-alias -g Fp='find "*" -print0 ' # -print0:標準出力をNULL文字で区切る
+alias -g FP='find "*" -print0 ' # -print0:標準出力をNULL文字で区切る
 alias -g X='| xargs --no-run-if-empty -i echo {}' # -i:標準入力を{}の箇所と置換し､個々にcmdの箇所のコマンドを実行する
-alias -g Xp='| xargs -L 50 -P 4 -0 --no-run-if-empty -i cp {}'
+alias -g XP='| xargs -L 50 -P 4 -0 --no-run-if-empty -i cp {}'
 # argument list too long のエラーが出る場合にこれでコマンドを並列実行する
 # xargsの並列実行について https://tagomoris.hatenablog.com/entry/20110513/1305267021
 # -L max-lines:コマンドラインごとに最大で最大行数の非空白の入力行を使用する
