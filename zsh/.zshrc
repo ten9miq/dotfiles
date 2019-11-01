@@ -21,6 +21,8 @@ bindkey -e  # emacsモードで使う
 if [ ! -f $HOME/.zplugin/bin/zplugin.zsh ]; then
   git clone https://github.com/zdharma/zplugin.git $HOME/.zplugin/bin
 fi
+declare -A ZPLGM  # initial Zplugin's hash definition, if configuring before loading Zplugin, and then:
+ZPLGM[COMPINIT_OPTS]=-C
 
 source $HOME/.zplugin/bin/zplugin.zsh
 autoload -Uz _zplugin
@@ -50,7 +52,7 @@ zplugin ice lucid multisrc"shell/{completion,key-bindings}.zsh" \
   id-as"junegunn/fzf_completions" pick"/dev/null";
 zplugin light junegunn/fzf
 
-#autoload -Uz compinit; compinit
+autoload -Uz compinit; compinit -C
 # -----------------------------
 # General
 # -----------------------------
