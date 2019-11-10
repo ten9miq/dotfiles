@@ -24,8 +24,12 @@ bindkey -e  # emacsモードで使う
 if [ ! -f $HOME/.zplugin/bin/zplugin.zsh ]; then
   git clone https://github.com/zdharma/zplugin.git $HOME/.zplugin/bin
 fi
-declare -A ZPLGM  # initial Zplugin's hash definition, if configuring before loading Zplugin, and then:
-ZPLGM[COMPINIT_OPTS]=-C
+
+if [ $(uname -r | grep -i microsoft) ] ; then
+  # wslの場合あまりにも遅いので補完ファイルのセキュアリードオプションを無効化する
+  declare -A ZPLGM  # initial Zplugin's hash definition, if configuring before loading Zplugin, and then:
+  ZPLGM[COMPINIT_OPTS]=-C
+fi
 
 source $HOME/.zplugin/bin/zplugin.zsh
 autoload -Uz _zplugin
@@ -37,7 +41,7 @@ zplugin ice blockf; zplugin light zsh-users/zsh-completions
 # 入力中の文字に応じて灰色の文字でコマンド候補を表示してくれる
 zplugin light zsh-users/zsh-autosuggestions
 # コマンド入力中に上キーや下キーを押した際の履歴の検索を使いやすくする
-zplugin light zsh-users/zsh-history-substring-search # , if:"[[ __zsh_version > 4.3 ]]"
+zplugin ice if"[[ __zsh_version > 4.3 ]]"; zplugin light zsh-users/zsh-history-substring-search
 # コマンドのシンタックスハイライト
 zplugin light zsh-users/zsh-syntax-highlighting
 # cdコマンドをfzfなどと組み合わせ便利にする
@@ -49,13 +53,15 @@ zplugin light mollifier/zload
 # rmの代替として.gomiフォルダにゴミを捨てる(If fzf is already installed)
 zplugin light b4b4r07/zsh-gomi
 # コマンドの-hで表示されるもので補完ファイルを生成する
-zplugin ice has'python'; zplugin light RobSis/zsh-completion-generator # , if:"GENCOMPL_FPATH=$HOME/.zsh/complete"
+export GENCOMPL_FPATH=$HOME/.zsh/complete
+zplugin ice has'python'; zplugin light RobSis/zsh-completion-generator
+# kコマンドでlsより見やすい表示をおこなう
+zplugin light alankyshum/k
 # fzfの補完とキーバインドを追加
 zplugin ice lucid multisrc"shell/{completion,key-bindings}.zsh" \
   id-as"junegunn/fzf_completions" pick"/dev/null";
 zplugin light junegunn/fzf
 
-autoload -Uz compinit; compinit -C
 # -----------------------------
 # General
 # -----------------------------
@@ -389,7 +395,12 @@ gcomp_all(){
 
 # 自動補完を有効にする
 # これはほかの補完ファイルを読み込んだ後に実行しないと意味がない
-# autoload -Uz compinit ; compinit
+if [ $(uname -r | grep -i microsoft) ] ; then
+  # wslの場合あまりにも遅いので補完ファイルのセキュアリードオプションを無効化する
+  autoload -Uz compinit ; compinit -C
+else
+  autoload -Uz compinit ; compinit
+fi
 
 # 単語の入力途中でもTab補完を有効化
 setopt complete_in_word
