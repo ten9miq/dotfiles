@@ -56,7 +56,7 @@ zplugin light b4b4r07/zsh-gomi
 export GENCOMPL_FPATH=$HOME/.zsh/complete
 zplugin ice has'python'; zplugin light RobSis/zsh-completion-generator
 # kコマンドでlsより見やすい表示をおこなう
-zplugin light alankyshum/k
+zplugin light supercrabtree/k
 # fzfの補完とキーバインドを追加
 zplugin ice lucid multisrc"shell/{completion,key-bindings}.zsh" \
   id-as"junegunn/fzf_completions" pick"/dev/null";
