@@ -569,6 +569,7 @@ alias -g H='| head'
 alias -g G='| grep'
 alias -g GI='| grep -ri' # -r:ディレクトリ内も検索対象とする -i:大文字と小文字を区別せず検索する
 alias -g S='sudo '
+alias -g Z='| fzf'
 alias -g W='| wc -l' # -l:行単位で数える
 alias -g X='| xargs -i cmd {}' # -i:標準入力を{}と箇所と置換し､個々にcmdの箇所のコマンドを実行する
 alias -g F='find "*" '
