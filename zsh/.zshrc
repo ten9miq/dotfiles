@@ -25,9 +25,9 @@ if [ ! -f $HOME/.zplugin/bin/zplugin.zsh ]; then
   git clone https://github.com/zdharma/zplugin.git $HOME/.zplugin/bin
 fi
 
+declare -A ZPLGM  # initial Zplugin's hash definition, if configuring before loading Zplugin, and then:
 if [ $(uname -r | grep -i microsoft) ] ; then
   # wslの場合あまりにも遅いので補完ファイルのセキュアリードオプションを無効化する
-  declare -A ZPLGM  # initial Zplugin's hash definition, if configuring before loading Zplugin, and then:
   ZPLGM[COMPINIT_OPTS]=-C
 fi
 
@@ -58,7 +58,7 @@ zplugin ice has'python'; zplugin light RobSis/zsh-completion-generator
 # kコマンドでlsより見やすい表示をおこなう
 zplugin light supercrabtree/k
 # fzfの補完とキーバインドを追加
-zplugin ice lucid multisrc"shell/{completion,key-bindings}.zsh" \
+zplugin ice multisrc"shell/{completion,key-bindings}.zsh" \
   id-as"junegunn/fzf_completions" pick"/dev/null";
 zplugin light junegunn/fzf
 
@@ -392,7 +392,9 @@ gcomp_all(){
 # -----------------------------
 # Completion
 # -----------------------------
-
+if [ -e ~/.zsh/complete/  ]; then
+    fpath=(~/.zsh/complete $fpath)
+fi
 # 自動補完を有効にする
 # これはほかの補完ファイルを読み込んだ後に実行しないと意味がない
 if [ $(uname -r | grep -i microsoft) ] ; then
