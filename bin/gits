@@ -7,8 +7,8 @@ CWD=$(pwd)
 # ローカル配列宣言
 for repos in $(find ${CWD} -name ".git"); do
     ## remove ".git"
-    echo $repos
     repos=${repos%/.git}
+
     echo -n "repos : "
     echo ${repos};
     cd ${repos}
