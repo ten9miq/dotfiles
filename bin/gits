@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# reference
+#   - zsh の配列操作の基本から応用まで - Qiita
+#       - https://qiita.com/mollifier/items/f897b3fddd2d10369333
+CWD=$(pwd)
+# ローカル配列宣言
+for repos in $(find ${CWD} -name ".git"); do
+    ## remove ".git"
+    echo $repos
+    repos=${repos%/.git}
+    echo -n "repos : "
+    echo ${repos};
+    cd ${repos}
+    echo "-------------------------------------------------"
+    # push  (ref: https://qiita.com/mollifier/items/f897b3fddd2d10369333 )
+
+    #----------------------------------------
+    # git command exec
+    #----------------------------------------
+    sudo git -c 'include.path='"${XDG_CONFIG_DIR:-$HOME/.config}"'/git/config' -c 'include.path='"${HOME}/.gitconfig" $@
+    echo "##################################################"
+done
+
