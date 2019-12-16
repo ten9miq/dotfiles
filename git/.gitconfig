@@ -55,7 +55,7 @@
   cn = clean
 
   co = checkout
-  com = co -B master origin/master
+  com = checkout -B master origin/master # remoteの素のmasterへ強制切り替え
   sh = show
   st = stash
   s = status
@@ -64,6 +64,7 @@
   pl = pull
   ps = push
   re = remote
+  rb = rebase
   # リモートで削除されたブランチをローカルで削除
   remote-deleted-local-branch-rm = remote prune origin
   # リモート追跡ブランチを消す
