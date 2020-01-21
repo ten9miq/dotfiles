@@ -1,7 +1,7 @@
 # bashコマンド
 alias v='vim'
 alias vi='vim'
-alias vin='vim -n -u NONE -i NONE --cmd "set nowrap"'
+alias vin='vim -n -u NONE -i NONE --cmd "set nowrap" --cmd "set number"'
 # -n スワップファイルなし -u NONE pluginもvimrcも読み込まない -i NONE viminfoを読み込まない
 alias l='\ls'
 alias ls='\ls -AXFhv --group-directories-first --color=auto'
