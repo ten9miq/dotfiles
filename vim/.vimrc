@@ -226,6 +226,8 @@ let mapleader = "\<Space>"
 
 " ノーマルモードで<Leader>yでファイル全体のコピー
 nnoremap <silent> <leader>y :%y<CR>
+" ノーマルモードで<leader>aでファイル全体を選択する
+nnoremap <silent> <leader>a ggVG<CR>
 " visualモードで選択したあとに、ヤンクした文字をペーストするとレジスターの中身が入れ替わる現状への対応
 vnoremap <silent> <leader>p "0p<CR>
 " 保存
