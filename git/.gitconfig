@@ -67,8 +67,8 @@
   ps = push
   re = remote
   rb = rebase
-  # リモートで削除されたブランチをローカルで削除
-  remote-deleted-local-branch-rm = remote prune origin
+  # リモートで削除されたブランチをローカルで削除 または git ftpでも同じ
+  remote-deleted-baranch-deletion = remote prune origin
   # リモートURLの上書き
   remote-url-set = remote set-url origin
 
@@ -88,7 +88,5 @@
   lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   alias = !"if test -z $1; then loop=; for k in `git config --get-regexp ^alias\\. | sort | sed -e 's/^alias\\.\\(\\S*\\).*/\\1/g'`; do echo -n $k; loop="${loop}1"; if test ${#loop} -lt 5; then echo -n '\t'; else echo; loop=; fi; done; exit; fi; git config --list | grep ^alias\\.$1= | sed -e s/^alias\\.//; exit;"
 
-  # マージ済みブランチ削除
-  delete-merged-branch = "!f () { git branch --merged|egrep -v '\\*|develop|master' | xargs git branch -d; };f"
-  # マージ済みブランチの削除を対話式で実行
-  interactive-delete-merged-branch = "!f () { git branch --merged|egrep -v '\\*|master|develop' | xargs -p git branch -d; };f"
+  # マージ済みブランチ削除 (削除前に確認する)
+  delete-merged-branch = "!f () { git branch --merged|egrep -v '\\*|develop|master' | xargs -p --no-run-if-empty git branch -d; };f"
