@@ -58,7 +58,7 @@
   com = checkout -B master origin/master # remoteの素のmasterへ強制切り替え
   sh = show
   s = status
-  st = status
+  st = status --short --branch #  --short:show status concisely --branch:show branch information
   sa = stash
   cl = clone --recursive  # cloneの時､同時にsubmoduleもクローンしてくる
   ft = fetch
