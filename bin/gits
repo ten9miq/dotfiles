@@ -2,18 +2,16 @@
 
 # reference
 #   - zsh の配列操作の基本から応用まで - Qiita
-#       - https://qiita.com/mollifier/items/f897b3fddd2d10369333
-CWD=$(pwd)
-# ローカル配列宣言
-find ${CWD} -name '.git' | while read repos
+#         https://qiita.com/mollifier/items/f897b3fddd2d10369333
+#   - How can I view all the git repositories on my machine? - stack overflow
+#         https://stackoverflow.com/a/47676321
+find $(pwd) -type d -exec test -d {}/.git \; -prune -print | while read repos
 do
-    repos="${repos%/.git}"
-
+    # repos="${repos%/.git}" # .gitの文字をbashの変数展開時に削除
     echo -n "repos : "
     echo "${repos}"
     cd "${repos}"
     echo "-------------------------------------------------"
-    # push  (ref: https://qiita.com/mollifier/items/f897b3fddd2d10369333 )
 
     #----------------------------------------
     # git command exec
