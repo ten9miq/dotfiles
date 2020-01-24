@@ -57,18 +57,18 @@
   co = checkout
   com = checkout -B master origin/master # remoteの素のmasterへ強制切り替え
   sh = show
-  st = stash
   s = status
+  st = status
+  sa = stash
   cl = clone --recursive  # cloneの時､同時にsubmoduleもクローンしてくる
   ft = fetch
+  ftp = fetch --prune # リモートで削除されているリモートブランチを削除する
   pl = pull
   ps = push
   re = remote
   rb = rebase
   # リモートで削除されたブランチをローカルで削除
   remote-deleted-local-branch-rm = remote prune origin
-  # リモート追跡ブランチを消す
-  remote-deleted-branch-rm = fetch --prune
   # リモートURLの上書き
   remote-url-set = remote set-url origin
 
@@ -90,3 +90,5 @@
 
   # マージ済みブランチ削除
   delete-merged-branch = "!f () { git branch --merged|egrep -v '\\*|develop|master' | xargs git branch -d; };f"
+  # マージ済みブランチの削除を対話式で実行
+  interactive-delete-merged-branch = "!f () { git branch --merged|egrep -v '\\*|master|develop' | xargs -p git branch -d; };f"
