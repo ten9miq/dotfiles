@@ -37,7 +37,6 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 # 補完の強化。
-# zinit light zsh-users/zsh-completions
 zinit ice blockf; zinit light zsh-users/zsh-completions
 # 入力中の文字に応じて灰色の文字でコマンド候補を表示してくれる
 zinit light zsh-users/zsh-autosuggestions
@@ -55,7 +54,7 @@ zinit light mollifier/zload
 zinit light b4b4r07/zsh-gomi
 # コマンドの-hで表示されるもので補完ファイルを生成する
 export GENCOMPL_FPATH=$HOME/.zsh/complete
-zinit ice has'python'; zinit light RobSis/zsh-completion-generator
+# zinit ice has'python'; zinit light RobSis/zsh-completion-generator
 # kコマンドでlsより見やすい表示をおこなう
 zinit light supercrabtree/k
 # fzfの補完とキーバインドを追加
