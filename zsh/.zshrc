@@ -19,48 +19,49 @@ bindkey -e  # emacsモードで使う
 # bindkey -v # viinsモード
 
 # -----------------------------
-# zplugによるplugin設定
+# zinitによるplugin設定
 # -----------------------------
-if [ ! -f $HOME/.zplugin/bin/zplugin.zsh ]; then
-  git clone https://github.com/zdharma/zplugin.git $HOME/.zplugin/bin
+if [ ! -f $HOME/.zinit/bin/zinit.zsh ]; then
+  git clone https://github.com/zdharma/zinit.git $HOME/.zinit/bin
 fi
 
-declare -A ZPLGM  # initial Zplugin's hash definition, if configuring before loading Zplugin, and then:
+declare -A ZINIT  # initial Zplugin's hash definition, if configuring before loading Zplugin, and then:
 if [ $(uname -r | grep -i microsoft) ] ; then
   # wslの場合あまりにも遅いので補完ファイルのセキュアリードオプションを無効化する
-  ZPLGM[COMPINIT_OPTS]=-C
+  # またwslだとzinitでcloneされたものが777の権限でIgnore insecure directoriesの警告がでるのでそれを無視する
+  ZINIT[COMPINIT_OPTS]=-C
 fi
 
-source $HOME/.zplugin/bin/zplugin.zsh
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
+source $HOME/.zinit/bin/zinit.zsh
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
 # 補完の強化。
-# zplugin light zsh-users/zsh-completions
-zplugin ice blockf; zplugin light zsh-users/zsh-completions
+# zinit light zsh-users/zsh-completions
+zinit ice blockf; zinit light zsh-users/zsh-completions
 # 入力中の文字に応じて灰色の文字でコマンド候補を表示してくれる
-zplugin light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-autosuggestions
 # コマンド入力中に上キーや下キーを押した際の履歴の検索を使いやすくする
-zplugin ice if"[[ __zsh_version > 4.3 ]]"; zplugin light zsh-users/zsh-history-substring-search
+zinit ice if"[[ __zsh_version > 4.3 ]]"; zinit light zsh-users/zsh-history-substring-search
 # コマンドのシンタックスハイライト
-zplugin light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-syntax-highlighting
 # cdコマンドをfzfなどと組み合わせ便利にする
-zplugin ice silent pick"init.sh"; zplugin load "b4b4r07/enhancd"
+zinit ice silent pick"init.sh"; zinit load "b4b4r07/enhancd"
 # gitリポジトリ内に居る時にリポジトリのルートに移動する
-zplugin light mollifier/cd-gitroot
+zinit light mollifier/cd-gitroot
 # 補完の動的再読み込みを行う
-zplugin light mollifier/zload
+zinit light mollifier/zload
 # rmの代替として.gomiフォルダにゴミを捨てる(If fzf is already installed)
-zplugin light b4b4r07/zsh-gomi
+zinit light b4b4r07/zsh-gomi
 # コマンドの-hで表示されるもので補完ファイルを生成する
 export GENCOMPL_FPATH=$HOME/.zsh/complete
-zplugin ice has'python'; zplugin light RobSis/zsh-completion-generator
+zinit ice has'python'; zinit light RobSis/zsh-completion-generator
 # kコマンドでlsより見やすい表示をおこなう
-zplugin light supercrabtree/k
+zinit light supercrabtree/k
 # fzfの補完とキーバインドを追加
-zplugin ice multisrc"shell/{completion,key-bindings}.zsh" \
+zinit ice multisrc"shell/{completion,key-bindings}.zsh" \
   id-as"junegunn/fzf_completions" pick"/dev/null";
-zplugin light junegunn/fzf
+zinit light junegunn/fzf
 
 # -----------------------------
 # General
