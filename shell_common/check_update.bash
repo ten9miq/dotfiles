@@ -22,19 +22,19 @@ else
     if [ -d $HOME/dotfiles ]; then
       \cd $HOME/dotfiles
       branch_name=`git rev-parse --abbrev-ref HEAD`||exit
-      if [ ${branch_name} = 'master'  ]; then
+      if [ ${branch_name} = 'master' -o ${branch_name} = 'before_zinit' ]; then
         git fetch -p
-        git checkout -q master
+        git checkout -q ${branch_name}
         latest_rev=$(git ls-remote origin HEAD | awk '{print $1}')
         current_rev=$(git rev-parse HEAD)
         if [ "$latest_rev" != "$current_rev" ]; then
           # 最新じゃない場合には更新処理を行う
           git reset --hard $(git log --pretty=format:%H | head -1)
-          git pull
+          git pull origin ${branch_name}
           ./setup.sh
         fi
       else
-        echo "dotfile not master branch."
+        echo "dotfile not master branch. current branch is ${branch_name}."
       fi
       \cd -
     fi
