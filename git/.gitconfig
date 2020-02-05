@@ -53,6 +53,7 @@
   r = reset
   rh = reset --hard
   cn = clean
+  m = merge
 
   co = checkout
   com = checkout -B master origin/master # remoteの素のmasterへ強制切り替え
@@ -67,6 +68,7 @@
   ps = push
   re = remote
   rb = rebase
+  cp = cherry-pick
   # リモートで削除されたブランチをローカルで削除 または git ftpでも同じ
   remote-deleted-baranch-deletion = remote prune origin
   # リモートURLの上書き
