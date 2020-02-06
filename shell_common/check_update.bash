@@ -25,7 +25,7 @@ else
       if [ ${branch_name} = 'master' -o ${branch_name} = 'before_zinit' ]; then
         git fetch -p
         git checkout -q ${branch_name}
-        latest_rev=$(git ls-remote origin HEAD | awk '{print $1}')
+        latest_rev=$(git ls-remote origin ${branch_name} | awk '{print $1}')
         current_rev=$(git rev-parse HEAD)
         if [ "$latest_rev" != "$current_rev" ]; then
           # 最新じゃない場合には更新処理を行う
