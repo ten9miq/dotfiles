@@ -37,30 +37,39 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 # 補完の強化。
-zinit ice blockf; zinit light zsh-users/zsh-completions
+zinit ice blockf depth'1'; zinit light zsh-users/zsh-completions
 # 入力中の文字に応じて灰色の文字でコマンド候補を表示してくれる
-zinit light zsh-users/zsh-autosuggestions
+zinit ice depth'1'; zinit light zsh-users/zsh-autosuggestions
 # コマンド入力中に上キーや下キーを押した際の履歴の検索を使いやすくする
 zinit ice if"[[ __zsh_version > 4.3 ]]"; zinit light zsh-users/zsh-history-substring-search
 # コマンドのシンタックスハイライト
-zinit light zsh-users/zsh-syntax-highlighting
+zinit ice depth'1'; zinit light zdharma/fast-syntax-highlighting
 # cdコマンドをfzfなどと組み合わせ便利にする
-zinit ice silent pick"init.sh"; zinit load "b4b4r07/enhancd"
+zinit ice silent pick"init.sh" depth'1'; zinit load "b4b4r07/enhancd"
 # gitリポジトリ内に居る時にリポジトリのルートに移動する
-zinit light mollifier/cd-gitroot
+zinit ice depth'1'; zinit light mollifier/cd-gitroot
 # 補完の動的再読み込みを行う
-zinit light mollifier/zload
+zinit ice depth'1'; zinit light mollifier/zload
 # rmの代替として.gomiフォルダにゴミを捨てる(If fzf is already installed)
-zinit light b4b4r07/zsh-gomi
+zinit ice depth'1'; zinit light b4b4r07/zsh-gomi
 # コマンドの-hで表示されるもので補完ファイルを生成する
 export GENCOMPL_FPATH=$HOME/.zsh/complete
 # zinit ice has'python'; zinit light RobSis/zsh-completion-generator
 # kコマンドでlsより見やすい表示をおこなう
-zinit light supercrabtree/k
+zinit ice depth'1'; zinit light supercrabtree/k
 # fzfの補完とキーバインドを追加
 zinit ice multisrc"shell/{completion,key-bindings}.zsh" \
-  id-as"junegunn/fzf_completions" pick"/dev/null";
+  id-as"junegunn/fzf_completions" pick"/dev/null" depth'1';
 zinit light junegunn/fzf
+
+# -----------
+# plugin設定
+# -----------
+
+# zdharma/fast-syntax-highlightingの色をカスタマイズ
+typeset -A FAST_HIGHLIGHT_STYLES
+FAST_HIGHLIGHT_STYLES[${FAST_THEME_NAME}path]='fg=211'
+FAST_HIGHLIGHT_STYLES[${FAST_THEME_NAME}path-to-dir]='fg=211,underline'
 
 # -----------------------------
 # General
@@ -107,19 +116,6 @@ REPORTTIME=3
 
 ## 「/」も単語区切りとみなす。
 WORDCHARS=${WORDCHARS:s,/,,}
-
-# デフォルトだとmainのみだけなので、他のシンタックスハイライトを有効にする
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
-
-typeset -A ZSH_HIGHLIGHT_STYLES # Declare the variable
-ZSH_HIGHLIGHT_STYLES[globbing]='fg=027' # 青の色が見にくいので見やすい青に
-ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=027' # 青の色が見にくいので見やすい青に
-
-typeset -A ZSH_HIGHLIGHT_PATTERNS # Declare the variable
-ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red') # 注意が必要なコマンドの背景色を赤色にする
-
-# 括弧のシンタックスハイライトの色を見やすい青系に
-ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=027,bold'
 
 # -----------------------------
 # Prompt
