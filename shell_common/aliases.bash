@@ -19,7 +19,7 @@ alias sg="sudo_git"
 
 alias watch='watch -n0.3 '
 wagrep(){
-  watch -n0.3 -d "ps -fax | grep $@ | grep -v grep"
+  watch -n0.3 -d "ps fax | grep $@ | grep -v grep"
 }
 wals(){
   watch -n0.3 -d 'ls | wc -l | (echo "count $(cat)") && ls -Al'
