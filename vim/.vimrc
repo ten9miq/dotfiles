@@ -446,6 +446,13 @@ omap <Leader>L  <Plug>(easymotion-segments-RF)
 omap <Leader>h  <Plug>(easymotion-segments-LB)
 omap <Leader>H  <Plug>(easymotion-segments-RB)
 
+" -------------------------------------------------
+" fidian/hexmode
+" vim -b で対象ファイルを16進数エディタして表示､編集が可能になるプラグイン
+" -------------------------------------------------
+let g:hexmode_xxd_options = '-g 1'
+let g:hexmode_patterns = '*.bin,*.exe,*.dat,*.o'
+
 "*******************************************************************************************
 " vimの動作改変スクリプト
 "*******************************************************************************************
@@ -556,15 +563,18 @@ endif
 
 " -------------------------------------------------
 " バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
+" プラグインにより不要
+" **.gzのファイルを開く時に下記が無効だとvim内臓のプラグインによりテキストと同じように表示編集可能だが
+" 下記の設定が有効だと**.gzファイルが強制的にバイナリ編集になるのでプラグインで行うようにする
 " -------------------------------------------------
-augroup BinaryXXD
-  autocmd!
-  autocmd BufReadPre  *.bin let &binary =1
-  autocmd BufReadPost * if &binary | silent %!xxd -g 1
-  autocmd BufReadPost * set ft=xxd | endif
-  autocmd BufWritePre * if &binary | %!xxd -r
-  autocmd BufWritePre * endif
-  autocmd BufWritePost * if &binary | silent %!xxd -g 1
-  autocmd BufWritePost * set nomod | endif
-augroup END
+" augroup BinaryXXD
+"   autocmd!
+"   autocmd BufReadPre  *.bin let &binary =1
+"   autocmd BufReadPost * if &binary | silent %!xxd -g 1
+"   autocmd BufReadPost * set ft=xxd | endif
+"   autocmd BufWritePre * if &binary | %!xxd -r
+"   autocmd BufWritePre * endif
+"   autocmd BufWritePost * if &binary | silent %!xxd -g 1
+"   autocmd BufWritePost * set nomod | endif
+" augroup END
 

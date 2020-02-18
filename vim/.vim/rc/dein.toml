@@ -112,3 +112,7 @@ repo = 'chr4/nginx.vim'
 # dockerfileのハイライト設定
 [[plugins]]
 repo = 'ekalinin/Dockerfile.vim'
+
+# vim -b でバイナリファイルとして表示､編集をおこなう
+[[plugins]]
+repo = 'fidian/hexmode'
