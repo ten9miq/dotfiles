@@ -18,7 +18,7 @@ alias g='git'
 alias sg="sudo_git"
 
 alias watch='watch -n0.3 '
-wagrep(){
+waps(){
   watch -n0.3 -d "ps fax | grep $@ | grep -v grep"
 }
 wals(){
