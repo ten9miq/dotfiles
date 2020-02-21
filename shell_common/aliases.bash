@@ -19,10 +19,10 @@ alias sg="sudo_git"
 
 alias watch='watch -n0.3 '
 waps(){
-  watch -n0.3 -d "ps fax | grep $@ | grep -v grep"
+  watch -n0.3 "ps fax | grep $@ | grep -v grep"
 }
 wals(){
-  watch -n0.3 -d 'ls | wc -l | (echo "count $(cat)") && ls -Al'
+  watch -n0.3 'ls | wc -l | (echo "count $(cat)") && ls -AlXvFSh --group-directories-first --time-style="+%y-%m-%d %H:%M:%S"'
 }
 
 sudof(){
