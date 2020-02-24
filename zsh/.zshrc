@@ -53,7 +53,7 @@ zinit ice depth'1'; zinit light mollifier/zload
 # rmの代替として.gomiフォルダにゴミを捨てる(If fzf is already installed)
 zinit ice depth'1'; zinit light b4b4r07/zsh-gomi
 # 現在のパスのgitの情報を表示するプラグイン
-zinit ice atload'!_zsh_git_prompt_precmd_hook' lucid
+zinit ice depth'1' atload'!_zsh_git_prompt_precmd_hook' lucid
 zinit load woefe/git-prompt.zsh
 # コマンドの-hで表示されるもので補完ファイルを生成する
 export GENCOMPL_FPATH=$HOME/.zsh/complete
