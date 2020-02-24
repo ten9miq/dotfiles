@@ -159,8 +159,9 @@ setopt prompt_subst
 # コピペしやすいようにコマンド実行後は右プロンプトを消す。
 setopt transient_rprompt
 
+[ -f ~/.config/shell_common/prompt.bash ] && source ~/.config/shell_common/prompt.bash
 
-PROMPT="%F{170}%n%f%F{027}@%f%F{green}%3m%f%F{039} %~ %f
+PROMPT="%F{170}%n%f%F{027}@%f%F{green}%3m%f%F{039} $(eval 'echo ${MYPSDIR}') %f
 %F{099}[${SHLVL}]%f%F{245}[%D{%y/%m/%d %H:%M:%S}]%f $ "
 
 autoload -Uz is-at-least
