@@ -170,7 +170,7 @@ PROMPT="%F{170}%n%f%F{027}@%f%F{green}%3m%f%F{039} $(eval 'echo ${MYPSDIR}') %f
 # Gitリポジトリ配下の場合にプロンプト右にGit上のステータスを表示するプラグインの設定
 ZSH_GIT_PROMPT_SHOW_STASH=1 # デフォルトではstashは非表示になっているので有効化
 ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg[red]%}✚ " # 2バイト文字の幅がおかしくなるのでスペースを末尾に追加
-ZSH_THEME_GIT_PROMPT_STASHED="%F{033}⚑" # デフォルトの青が見にくいにので明度が違う青にする
+ZSH_THEME_GIT_PROMPT_STASHED="%F{033}◌ " # デフォルトの青が見にくいにので明度が違う青にする
 RPROMPT='$(gitprompt)'
 
 # -----------------------------
