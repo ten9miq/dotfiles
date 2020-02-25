@@ -22,7 +22,7 @@ bindkey -e  # emacsモードで使う
 # zinitによるplugin設定
 # -----------------------------
 if [ ! -f $HOME/.zinit/bin/zinit.zsh ]; then
-  git clone https://github.com/zdharma/zinit.git $HOME/.zinit/bin
+  git clone --depth=1 https://github.com/zdharma/zinit.git $HOME/.zinit/bin
 fi
 
 declare -A ZINIT  # initial Zplugin's hash definition, if configuring before loading Zplugin, and then:
@@ -160,7 +160,7 @@ zsh_color(){
 # Prompt内で変数展開・コマンド置換・算術演算を実行する
 setopt prompt_subst
 # コピペしやすいようにコマンド実行後は右プロンプトを消す。
-setopt transient_rprompt
+# setopt transient_rprompt
 
 [ -f ~/.config/shell_common/prompt.bash ] && source ~/.config/shell_common/prompt.bash
 
