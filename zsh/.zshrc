@@ -53,8 +53,7 @@ zinit ice depth'1'; zinit light mollifier/zload
 # rmの代替として.gomiフォルダにゴミを捨てる(If fzf is already installed)
 zinit ice depth'1'; zinit light b4b4r07/zsh-gomi
 # 現在のパスのgitの情報を表示するプラグイン
-zinit ice depth'1' atload'!_zsh_git_prompt_precmd_hook' lucid
-zinit load woefe/git-prompt.zsh
+zinit ice depth'1'; zinit light yonchu/zsh-vcs-prompt
 # コマンドの-hで表示されるもので補完ファイルを生成する
 export GENCOMPL_FPATH=$HOME/.zsh/complete
 # zinit ice has'python'; zinit light RobSis/zsh-completion-generator
@@ -168,10 +167,28 @@ PROMPT="%F{170}%n%f%F{027}@%f%F{green}%3m%f%F{039} $(eval 'echo ${MYPSDIR}') %f
 %F{099}[${SHLVL}]%f%F{245}[%D{%y/%m/%d %H:%M:%S}]%f $ "
 
 # Gitリポジトリ配下の場合にプロンプト右にGit上のステータスを表示するプラグインの設定
-ZSH_GIT_PROMPT_SHOW_STASH=1 # デフォルトではstashは非表示になっているので有効化
-ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg[red]%}✚ " # 2バイト文字の幅がおかしくなるのでスペースを末尾に追加
-ZSH_THEME_GIT_PROMPT_STASHED="%F{033}◌ " # デフォルトの青が見にくいにので明度が違う青にする
-RPROMPT='$(gitprompt)'
+# 全角文字の一部がzshで表示するときに幅が違うために入力箇所がずれる事象が発生したので記号を変更
+ZSH_VCS_PROMPT_AHEAD_SIGIL='↑'
+ZSH_VCS_PROMPT_BEHIND_SIGIL='↓'
+ZSH_VCS_PROMPT_STAGED_SIGIL='●'
+ZSH_VCS_PROMPT_CONFLICTS_SIGIL='✖'
+ZSH_VCS_PROMPT_UNSTAGED_SIGIL='✚ '
+ZSH_VCS_PROMPT_UNTRACKED_SIGIL='⋯'
+ZSH_VCS_PROMPT_STASHED_SIGIL='◌'
+ZSH_VCS_PROMPT_CLEAN_SIGIL='v'
+
+## Git without Action.
+ZSH_VCS_PROMPT_GIT_FORMATS='(%{%B%F{yellow}%}#s%{%f%b%})' # VCS name
+ZSH_VCS_PROMPT_GIT_FORMATS+='[%{%B%F{magenta}%}#b%{%f%b%}' # Branch name
+ZSH_VCS_PROMPT_GIT_FORMATS+='#c#d|' # Ahead and Behind
+ZSH_VCS_PROMPT_GIT_FORMATS+='%{%F{green}%}#e%{%f%b%}' # Staged
+ZSH_VCS_PROMPT_GIT_FORMATS+='%{%F{red}%}#f%{%f%b%}' # Conflicts
+ZSH_VCS_PROMPT_GIT_FORMATS+='%{%F{red}%}#g%{%f%b%}' # Unstaged
+ZSH_VCS_PROMPT_GIT_FORMATS+='#h' # Untracked
+ZSH_VCS_PROMPT_GIT_FORMATS+='%{%F{033}%}#i%{%f%b%}' # Stashed
+ZSH_VCS_PROMPT_GIT_FORMATS+='%{%B%F{green}%}#j%{%f%b%}]' # Clean
+
+RPROMPT='$(vcs_super_info)'
 
 # -----------------------------
 # History
