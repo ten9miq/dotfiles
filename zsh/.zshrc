@@ -402,9 +402,6 @@ chpwd() { ls_abbrev }
 # aliasの読み込み
 [ -f ~/.config/shell_common/aliases.bash ] && source ~/.config/shell_common/aliases.bash
 
-# zshのcd-gitrootのalias
-alias cdu='cd-gitroot'
-
 # それぞれのaliasに対応
 # setopt no_complete_aliasesでalisaを展開したあととして補完が対応できるはずだが
 # alias sg='sudo git -c xxxx'を展開すると-あとのパラメータの補完ができない

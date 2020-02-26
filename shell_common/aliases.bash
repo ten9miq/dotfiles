@@ -16,6 +16,7 @@ alias svi='sudo_vim'
 alias hg='history | grep'
 alias g='git'
 alias sg="sudo_git"
+alias cdu='cd-gitroot' # zshのcd-gitrootのalias
 
 alias watch='watch -n0.3 '
 waps(){
