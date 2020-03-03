@@ -19,9 +19,9 @@ else
 
   if [ "${OS}" = 'Linux' ] ; then
     # Linuxの場合~/dotfile/の更新がないかチェックし、更新あればgit pullしてsetup.shを実行する
-    if [ -d $HOME/dotfiles ]; then
+    if type git > /dev/null 2>&1 && [ -d $HOME/dotfiles ] ; then
       \cd $HOME/dotfiles
-      branch_name=`git rev-parse --abbrev-ref HEAD`||exit
+      branch_name=`git rev-parse --abbrev-ref HEAD`
       if [ ${branch_name} = 'master' -o ${branch_name} = 'before_zinit' ]; then
         git fetch -p
         git checkout -q ${branch_name}
