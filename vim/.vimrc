@@ -161,6 +161,8 @@ set showtabline=2
 set display=lastline
 " 括弧入力時の対応する括弧を表示
 set showmatch
+" Vimの「%」を拡張する
+source $VIMRUNTIME/macros/matchit.vim
 " ステータスラインにてファイルエンコーディングやファイルフォーマット(改行コード)を表示
 set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,%l)/%L%8P\ 
 " コマンドラインの補完
@@ -562,7 +564,7 @@ if &term =~ "xterm" " gvimでは実行しないように判定する
 endif
 
 " -------------------------------------------------
-" バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
+" バイナリ編集(xxd)モード（vim -b での起動、もしくは *.binファイルを開くと発動します）
 " プラグインにより不要
 " **.gzのファイルを開く時に下記が無効だとvim内臓のプラグインによりテキストと同じように表示編集可能だが
 " 下記の設定が有効だと**.gzファイルが強制的にバイナリ編集になるのでプラグインで行うようにする
@@ -578,3 +580,17 @@ endif
 "   autocmd BufWritePost * set nomod | endif
 " augroup END
 
+" -------------------------------------------------
+" マウスの有効化
+" マウスでカーソル移動やスクロール移動が出来るようになります。
+" -------------------------------------------------
+if has('mouse')
+    set mouse=a
+    if has('mouse_sgr')
+        set ttymouse=sgr
+    elseif v:version > 703 || v:version is 703 && has('patch632')
+        set ttymouse=sgr
+    else
+        set ttymouse=xterm2
+    endif
+endif
