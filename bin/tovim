@@ -22,7 +22,10 @@ if [ -p /dev/stdin ]; then
         TOVIMTMP=~/.tovim_tmp_"$(date +%Y-%m-%d_%H-%M-%S.txt)"
         echo "$in" >"$TOVIMTMP"
         vim "$TOVIMTMP" </dev/tty >/dev/tty
-        cat "$TOVIMTMP"
+        if [ -p /dev/stdout ]; then
+          # 標準出力がパイプの場合
+          cat "$TOVIMTMP"
+        fi
         rm "$TOVIMTMP"
     fi
 else
