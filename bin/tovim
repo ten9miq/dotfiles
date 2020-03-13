@@ -25,6 +25,9 @@ if [ -p /dev/stdin ]; then
         if [ -p /dev/stdout ]; then
           # 標準出力がパイプの場合
           cat "$TOVIMTMP"
+        elif [ -f /dev/stdout ]; then
+          # 標準出力が通常のファイルの場合 (シンボリックリンクでもリンク先が通常のファイルならOK)
+          cat "$TOVIMTMP"
         fi
         rm "$TOVIMTMP"
     fi
