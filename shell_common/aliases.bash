@@ -25,6 +25,10 @@ alias g='git'
 alias sg="sudo_git"
 alias cdu='cd-gitroot' # zshのcd-gitrootのalias
 
+# mysqlのページャを設定して実行するコマンド
+alias mysqll='mysql --pager="less -S -N -i -F -X --shift=30"'
+alias mysqlv='mysql --pager="vim -R - -c \"set ft=sql\" -c \"set nowrap\" -c \"map OC zL\" -c \"map OD zH\""'
+
 alias watch='watch -n0.3 '
 waps(){
   watch -n0.3 "ps fax | grep $@ | grep -v grep"
