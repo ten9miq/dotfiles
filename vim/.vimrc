@@ -595,3 +595,37 @@ endif
 "         set ttymouse=xterm2
 "     endif
 " endif
+
+" -------------------------------------------------
+" <ESC>wでnowrapをトグル
+" -------------------------------------------------
+function! Wrap_switch()
+  if &wrap == '1'
+    set nowrap
+  else
+    set wrap
+  endif
+  call Wrap_keybind_setting()
+endfunction
+nmap <ESC>w :call Wrap_switch()<CR>
+
+" -------------------------------------------------
+" vimのwrapの設定を変えるとキーバインドも変更するようにする
+" -------------------------------------------------
+function! Wrap_keybind_setting()
+  if &wrap == '1'
+    " 左右の矢印キーでのページ移動を無効化
+    noremap <Right> <Right>
+    noremap <Left> <Left>
+  else
+    " 左右の矢印キーでページを左右に半分移動する
+    noremap <Right> zL
+    noremap <Left> zH
+  endif
+endfunction
+call Wrap_keybind_setting()
+
+if exists('##OptionSet')
+  autocmd! OptionSet *wrap call Wrap_keybind_setting()
+endif
+
