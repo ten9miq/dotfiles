@@ -18,6 +18,7 @@ endif
 
 
 " 設定開始
+let g:dein#types#git#clone_depth = 1
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
