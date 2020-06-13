@@ -14,4 +14,5 @@ Host *
     PermitLocalCommand  yes
     LocalCommand tmux rename-window %n
     ControlMaster auto
+    # %C by a hash of the concatenation: %l%h%p%r. ControlPath to long >= 108 bytes. (OpenSSH >= 6.7)
     ControlPath ~/.ssh/mux-%r@%h:%p
