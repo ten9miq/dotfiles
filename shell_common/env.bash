@@ -12,7 +12,9 @@ export LS_COLORS='di=01;96:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30
 # fzfのサイズ設定
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 export FZF_COMPLETION_TRIGGER="**" # default: '**'
-
+if which tree >/dev/null 2>&1; then
+  export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -100'" # alt-cでディレクトリツリーを表示する
+fi
 #---------------------------------------------------------------
 # lessの設定
 #---------------------------------------------------------------
