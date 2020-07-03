@@ -250,8 +250,6 @@ nnoremap gk k
 nmap <C-n> :nohlsearch<CR><Esc>
 " Ctrl-cではInsertLeaveイベントが発火しないため cohama/vim-insert-linenrのための設定
 inoremap <C-c> <ESC>
-" Insert mode時にCtrl-fに割当がないのでDeleteを割り当てる
-inoremap <C-f> <Del>
 
 " 入力モードでのカーソル移動
 " provide hjkl movements in Insert mode via the <Alt> modifier key
@@ -261,8 +259,10 @@ inoremap <C-f> <Del>
 "inoremap <A-j> <C-o>j
 "inoremap <A-k> <C-o>k
 "inoremap <A-l> <C-o>l
-" Ctrl+lは特にキーバインドがないのでカーソルを右に動かす
-inoremap <C-l> <C-o>l
+" Ctrl+lは特にキーバインドがないのでDeleteを割り当てる
+inoremap <C-l> <Del>
+" Insert mode時にCtrl-fに割当がないのでカーソルを右に動かす
+inoremap <C-f> <C-o>l
 
 " 日本語入力がオンのままでも使えるコマンド(Enterキーは必要)
 nnoremap あ a
