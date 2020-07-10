@@ -263,6 +263,8 @@ inoremap <C-c> <ESC>
 inoremap <C-l> <Del>
 " Insert mode時にCtrl-fに割当がないのでカーソルを右に動かす
 inoremap <C-f> <C-o>l
+" Insert mode時にCtrl-bの時はカーソルを左に動かす
+inoremap <C-b> <C-o>h
 
 " 日本語入力がオンのままでも使えるコマンド(Enterキーは必要)
 nnoremap あ a
