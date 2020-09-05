@@ -634,3 +634,28 @@ if exists('##OptionSet')
   autocmd! OptionSet *wrap call Wrap_keybind_setting()
 endif
 
+" -------------------------------------------------
+" jqによるjsonのフォーマットをするコマンド
+" -------------------------------------------------
+command! JqFormat :execute '%!jq "."'
+  \ | :set ft=javascript
+  \ | :1
+
+" -------------------------------------------------
+" pythonによるjsonのフォーマットをするコマンド
+" ただしpython ver 3.5で入力出力でキーの順番が同じになった
+" それ以前のバージョンでは辞書を使っているので必ずキーでソートされる
+" -------------------------------------------------
+command! JsonFormat :execute '%!python -m json.tool'
+  \ | :set ft=javascript
+  \ | :1
+
+" -------------------------------------------------
+" pythonによるjsonのフォーマットとUNICODE文字のデコード処理をするコマンド
+" -------------------------------------------------
+command! JsonFormatUNI :execute '%!python -m json.tool'
+ \ | :execute '%!python -c "import re,sys;sys.stdout.write(re.sub(r\"\\\\u[0-9a-f]{4}\", lambda x: unichr(int(\"0x\" + x.group(0)[2:], 16)).encode(\"utf-8\"), sys.stdin.read()))"'
+  \ | :%s/ \+$//ge
+  \ | :set ft=javascript
+  \ | :1
+
