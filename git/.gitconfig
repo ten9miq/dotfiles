@@ -61,6 +61,8 @@
   s = status
   st = status --short --branch #  --short:show status concisely --branch:show branch information
   sa = stash
+  sm = submodule
+  smcl = submodule update --init --recursive
   cl = clone --recursive  # cloneの時､同時にsubmoduleもクローンしてくる
   ft = fetch
   ftp = fetch --prune # リモートで削除されているリモートブランチを削除する
