@@ -455,7 +455,7 @@ zle -N globalias
 bindkey " " globalias
 
 # zshの起動処理の速度調査のスクリプト実行時に表示する設定
-if (which zprof &> /dev/null) ;then
+if (type zprof &> /dev/null) ;then
   zprof | less
 fi
 
