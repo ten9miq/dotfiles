@@ -22,9 +22,9 @@ if [ `os_type` = 'linux' ] \
   chmod 600 $copy_target/config
 elif [ `os_type` = 'cygwin' ]; then
   copy_target="$ALLUSERSPROFILE/ssh" # C:\ProgramData/
-  log_print "ssh config copy to ${copy_target}"
-  mkdir -p $copy_target
-  \cp $THIS_SCRIPT_PATH/config $copy_target/ssh_config
+  # log_print "ssh config copy to ${copy_target}"
+  # mkdir -p $copy_target
+  # \cp $THIS_SCRIPT_PATH/config $copy_target/ssh_config
 fi
 
 exit $?
