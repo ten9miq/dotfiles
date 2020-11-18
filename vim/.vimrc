@@ -176,8 +176,23 @@ set list
 set listchars=tab:^\ ,trail:⋅,extends:»,precedes:«,nbsp:⊔
 " itchyny/lightline.vimの色スキーマを変更
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ }
+    \     'colorscheme': 'wombat',
+    \     'active': {
+    \       'left': [
+    \         [ 'mode', 'paste' ],
+    \         [ 'readonly', 'filename', 'modified' ]
+    \       ],
+    \       'right': [
+    \           [ 'lineinfo' ],
+    \           [ 'percent' ],
+    \           [ 'charvaluehex', 'fileformat', 'fileencoding', 'enc', 'fenc', 'filetype' ]
+    \       ]
+    \     },
+    \     'component': {
+    \       'enc': 'enc:%{&enc}',
+    \       'fenc': 'fenc:%{&fenc}'
+    \     },
+    \ }
 " 上記でモード表記されるのでデフォルトのモード表記を非表示にする
 set noshowmode
 
