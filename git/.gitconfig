@@ -53,6 +53,7 @@
   r = reset
   rh = reset --hard
   cn = clean
+  cna = clean -fdx # -d:追跡していないディレクトリを含めて再帰的に削除 -x:追跡していないファイルを全削除
   m = merge
 
   co = checkout
