@@ -5,6 +5,9 @@ source $PROJECT_PATH/error_trap.sh
 true=0
 false=1
 
+shopt -s expand_aliases # bashスクリプト内でaliasを使うためのオプション
+alias cp='cp -b --suffix=_$(date +%Y%m%d_%H%M%S)'
+
 # プロセスが実行中であるか
 hasprocess() {
   if is_osx; then

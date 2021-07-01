@@ -4,6 +4,6 @@ THIS_SCRIPT_PATH=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
 source $THIS_SCRIPT_PATH/../setup_env.sh
 
 \mkdir -p $HOME/.config/
-\cp -r $THIS_SCRIPT_PATH/fish $HOME/.config/
+cp -r $THIS_SCRIPT_PATH/fish $HOME/.config/
 
 exit $?

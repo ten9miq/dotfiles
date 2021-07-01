@@ -4,7 +4,7 @@ THIS_SCRIPT_PATH=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
 source $THIS_SCRIPT_PATH/../setup_env.sh
 
 
-\cp $THIS_SCRIPT_PATH/.gitconfig ~/
+cp $THIS_SCRIPT_PATH/.gitconfig ~/
 
 # .gitconfig.localが存在しない場合に生成する
 if [ ! -e "${HOME}/.gitconfig.local" ]; then
