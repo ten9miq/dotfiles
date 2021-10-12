@@ -5,8 +5,18 @@ source $PROJECT_PATH/error_trap.sh
 true=0
 false=1
 
-shopt -s expand_aliases # bashスクリプト内でaliasを使うためのオプション
-alias cp='cp -b --suffix=_$(date +%Y%m%d_%H%M%S)'
+#shopt -s expand_aliases # bashスクリプト内でaliasを使うためのオプション
+#alias cp='cp -b --suffix=_$(date +%Y%m%d_%H%M%S)'
+
+cpBkMv() {
+  source_name=$(basename $1)
+  diff -s $1 $2/$source_name >/dev/null 2>&1
+  if [ $? -eq 1 ]; then
+    # 差分がある
+    DATE=$(date +%Y%m%d_%H%M%S)
+    command \cp -b --suffix=_$DATE $1 $2 && mkdir -p ~/bak && \mv $2/$source_name_$DATE ~/bak/
+  fi
+}
 
 # プロセスが実行中であるか
 hasprocess() {
