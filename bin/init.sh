@@ -20,6 +20,7 @@ do
   fi
 done < <(find $THIS_SCRIPT_PATH -type f -not -name '*.sh')
 chmod -R +x $copy_target
+ln -fs $copy_target/extract $copy_target/ext
 
 if [ $fzf_extract == 1 ]; then
   tar -xf $THIS_SCRIPT_PATH/.fzf.tgz -C $copy_target
@@ -27,6 +28,6 @@ else
   git clone --depth 1 https://github.com/junegunn/fzf.git $copy_target/.fzf
   $copy_target/.fzf/install --bin
 fi
-ln -fs $copy_target/.fzf/bin/fzf ~/bin/fzf
+ln -fs $copy_target/.fzf/bin/fzf $copy_target/fzf
 
 exit $?
