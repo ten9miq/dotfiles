@@ -1,5 +1,5 @@
-# ホスト名をドット区切りで3つ目までを取り出す
-hostname_head3() { echo $HOSTNAME | sed -r 's@(([^\.]*)(\.[^\.]*){1,2}).*$@\1@'; }
+# ホスト名をドット区切りで5つ目までを取り出す
+hostname_headCutOut() { echo $HOSTNAME | sed -r 's@(([^\.]*)(\.[^\.]*){1,4}).*$@\1@'; }
 
 # define the awk script using heredoc notation for easy modification
 MYPSDIR_AWK=$(cat << 'EOF'

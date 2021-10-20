@@ -163,7 +163,7 @@ setopt prompt_subst
 
 [ -f ~/.config/shell_common/prompt.bash ] && source ~/.config/shell_common/prompt.bash
 
-PROMPT="%F{170}%n%f%F{027}@%f%F{green}%3m%f%F{039} $(eval 'echo ${MYPSDIR}') %f
+PROMPT="%F{170}%n%f%F{027}@%f%F{green}%5m%f%F{039} $(eval 'echo ${MYPSDIR}') %f
 %F{099}[${SHLVL}]%f%F{245}[%D{%y/%m/%d %H:%M:%S}]%f $ "
 
 # Gitリポジトリ配下の場合にプロンプト右にGit上のステータスを表示するプラグインの設定
@@ -458,4 +458,3 @@ bindkey " " globalias
 if (type zprof &> /dev/null) ;then
   zprof | less
 fi
-

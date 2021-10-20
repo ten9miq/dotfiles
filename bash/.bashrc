@@ -50,7 +50,7 @@ EXT_COLOR () { echo -ne "\[\033[38;5;$1m\]"; }
 # Based Bash Profile Generator
 # http://xta.github.io/HalloweenBash/
 # 16color
-export PS1="$PURPLE\u$LIGHT_BLUE@$GREEN`hostname_head3` `EXT_COLOR 39`$(eval 'echo ${MYPSDIR}')$LIGHT_GLAY\$(__git_ps1 ' (%s)') "$'\n'"`EXT_COLOR 99`[${SHLVL}]$DARK_GLAY[\D{%y/%m/%d} \t]$RESET $LIGHT_BLUE\$ $RESET"
+export PS1="$PURPLE\u$LIGHT_BLUE@$GREEN`hostname_headCutOut` `EXT_COLOR 39`$(eval 'echo ${MYPSDIR}')$LIGHT_GLAY\$(__git_ps1 ' (%s)') "$'\n'"`EXT_COLOR 99`[${SHLVL}]$DARK_GLAY[\D{%y/%m/%d} \t]$RESET $LIGHT_BLUE\$ $RESET"
 
 
 # cd省略してのディレクトリ移動を行う
@@ -120,4 +120,3 @@ export PROMPT_COMMAND="dispatch"
 # Key bindings
 # -----------------------------
 source "$HOME/.bash/.fzf/shell/key-bindings.bash"
-
