@@ -419,7 +419,9 @@ compdef sudo_git=git
 
 # zshのglobal alias
 alias -g L='| less'
-alias -g H='| head'
+alias -g H='| head -n 20'
+alias -g T='| tail -n 20'
+alias -g J='| python -c "import json;print json.dumps(json.loads(raw_input()),ensure_ascii=False,indent=4,separetors=('\'','\'', '\'': '\''))"'
 alias -g G='| grep'
 alias -g GI='| grep -ri' # -r:ディレクトリ内も検索対象とする -i:大文字と小文字を区別せず検索する
 alias -g S='sudo '
