@@ -26,6 +26,7 @@ alias g='git'
 alias sg="sudo_git"
 alias cdu='cd-gitroot' # zshのcd-gitrootのalias
 alias du_sort='du -h --max-depth=1 | sort -hr' # コマンドを実行した場所のディレクトリをサイズの大きい順に表示する
+alisa rsync='rsync -ah --no-i-r --info=progress2'
 
 # mysqlのページャを設定して実行するコマンド
 alias mysqll='mysql --pager="less -S -N -i -F -X --shift=30"'
