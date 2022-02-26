@@ -100,6 +100,9 @@ set iminsert=0
 set hidden
 " 編集中のファイルが変更されたら自動で読み直す
 set autoread
+" ペースト時のオートインデントのをするかを切り替えるショートカット
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
 
 " 見た目系
 " Syntax Highlightを有効
@@ -185,14 +188,14 @@ let g:lightline = {
     \       'right': [
     \           [ 'lineinfo' ],
     \           [ 'percent' ],
-    \           [ 'charvaluehex', 'fileformat', 'fileencoding', 'enc', 'fenc', 'filetype' ]
+    \           [ 'char_count', 'charvaluehex', 'fileformat', 'fileencoding', 'filetype' ]
     \       ]
     \     },
-    \     'component': {
-    \       'enc': 'enc:%{&enc}',
-    \       'fenc': 'fenc:%{&fenc}'
+    \     'component_function': {
+    \       'char_count': 'LightlineCharCount'
     \     },
     \ }
+
 " 上記でモード表記されるのでデフォルトのモード表記を非表示にする
 set noshowmode
 
@@ -726,3 +729,34 @@ if has('autocmd')
   endfunction
   autocmd BufReadPost * call AU_ReCheck_FENC()
 endif
+
+" -------------------------------------------------
+" 文字数をカウントしLightlineのバーに表示する
+" -------------------------------------------------
+augroup char_counter
+  autocmd!
+  autocmd BufCreate,BufEnter * call s:char_counter_initialize()
+  autocmd BufNew,BufEnter,BufWrite,InsertLeave,TextChanged * call s:char_counter_update()
+augroup END
+function! s:char_counter_initialize()
+  if !exists('b:char_counter_count')
+    let b:char_counter_count = 0
+  endif
+endfunction
+function! s:char_counter_update()
+  let b:char_counter_count = s:char_counter()
+endfunction
+function! s:char_counter()
+  let result = 0
+  for linenum in range(0, line('$'))
+    let line = getline(linenum)
+    let result += strlen(substitute(line, '.', 'x', 'g'))
+  endfor
+  return result
+endfunction
+if !exists('b:char_counter_count')
+  let b:char_counter_count = 0
+endif
+function! LightlineCharCount() abort
+  return b:char_counter_count . '文字'
+endfunction
