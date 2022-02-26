@@ -760,3 +760,17 @@ endif
 function! LightlineCharCount() abort
   return b:char_counter_count . '文字'
 endfunction
+
+" -------------------------------------------------
+" 選択範囲の行の文字数をカウント 選択しEnterで表示
+" -------------------------------------------------
+function! g:LineCharVCount() range
+  let l:result = 0
+  for l:linenum in range(a:firstline, a:lastline)
+    let l:line = getline(l:linenum)
+    let l:result += strlen(substitute(l:line, ".", "x", "g"))
+  endfor
+  echo '選択行の文字数:' . l:result
+endfunction
+command! -range LineCharVCount <line1>,<line2>call g:LineCharVCount()
+vnoremap<silent> <CR> :LineCharVCount<CR>"}}}
