@@ -11,7 +11,3 @@ on_source = ['unite.vim']
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
 on_source = ['unite.vim']
-
-#  ANSIエスケープを文字の色の変更に変換して非表示にするプラグイン
-[[plugins]]
-repo = 'powerman/vim-plugin-AnsiEsc'

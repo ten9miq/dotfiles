@@ -116,3 +116,7 @@ repo = 'ekalinin/Dockerfile.vim'
 # vim -b でバイナリファイルとして表示､編集をおこなう
 [[plugins]]
 repo = 'fidian/hexmode'
+
+#  ANSIエスケープを文字の色の変更に変換して非表示にするプラグイン
+[[plugins]]
+repo = 'powerman/vim-plugin-AnsiEsc'
