@@ -143,7 +143,11 @@ if &term =~ "256color"
 endif
 
 " commentの色を変更
-hi Comment         ctermfg=240
+hi Comment      ctermfg=240
+" 背景色があると空白が入るので消す
+hi Normal       ctermfg=252 ctermbg=NONE
+hi CursorLine   ctermbg=234 cterm=NONE
+hi CursorLineNr ctermfg=208 cterm=NONE
 " カーソルがない行の文字がイタリック体にならないようにする
 autocmd ColorScheme * hi SpecialKey gui=none
 autocmd ColorScheme * hi Special guibg=bg gui=none
