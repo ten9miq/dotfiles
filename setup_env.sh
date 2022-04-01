@@ -5,17 +5,77 @@ source $PROJECT_PATH/error_trap.sh
 true=0
 false=1
 
-#shopt -s expand_aliases # bashスクリプト内でaliasを使うためのオプション
-#alias cp='cp -b --suffix=_$(date +%Y%m%d_%H%M%S)'
-
+shopt -s expand_aliases # bashスクリプト内でaliasを使うためのオプション
+# alias cp='cp -b --suffix=_$(date +%Y%m%d_%H%M%S)'
+alias cp='cpBkMv'
 cpBkMv() {
-  source_name=$(basename $1)
-  diff -s $1 $2/$source_name >/dev/null 2>&1
-  if [ $? -eq 1 ]; then
-    # 差分がある
-    DATE=$(date +%Y%m%d_%H%M%S)
-    command \cp -b --suffix=_$DATE $1 $2 && mkdir -p ~/bak && \mv $2/$source_name_$DATE ~/bak/
+  while (( $# > 0 ))
+  do
+    case $1 in
+      -R | -r | --recursive)
+        is_rec=1
+      ;;
+      -*)
+        echo "Illegal option '$1'" 1>&2
+        exit 1
+      ;;
+      *)
+        if [[ -n "${src-}" ]] && [[ -n "${target-}" ]]; then
+          echo "Too many arguments." 1>&2
+          exit 1
+        elif [[ -n "${src-}" ]]; then
+          target="$1"
+        else
+          src="$1"
+        fi
+      ;;
+    esac
+    shift
+  done
+
+  if [[ -z "${src-}" ]]; then
+    echo "'src' is required." 1>&2
+    exit 1
   fi
+
+  if [[ -z "${target-}" ]]; then
+    echo "'target' is required." 1>&2
+    exit 1
+  fi
+  backup_cp(){
+    source_name=${1##*/} # basename
+    target_dir=${2%/*} # dirname
+    bak_path="$HOME/.bak_dotfiles/"
+    if [ -e $target_dir/$source_name ]; then
+      diff -s $1 $target_dir/$source_name >/dev/null 2>&1
+      if [ $? -eq 1 ]; then
+        # 差分あり
+        mkdir -p $bak_path
+        DATE=$(date +%Y%m%d_%H%M%S)
+        \cp -f -b --suffix=_$DATE $1 $2  && \mv ${target_dir}/${source_name}_$DATE $bak_path
+      fi
+    else
+      # 存在しない
+      \cp $1 $2
+    fi
+  }
+
+  if [ ${is_rec-0} -eq 1 ]; then
+    # -rオプションあり
+    find $src -type f | while read -r find_path;
+    do
+      # 本スクリプトのパスをfindで取得したパス文字列から削除する
+      relative_path=${find_path##$THIS_SCRIPT_PATH/}
+      # コピー先のディレクトリがなければ作成する
+      mkdir -p ${target%/*}/${relative_path%/*} # %/* = dirname
+      backup_cp $find_path ${target%/*}/$relative_path
+    done
+  else
+    backup_cp $src $target
+  fi
+  unset src
+  unset target
+  unset is_rec
 }
 
 # プロセスが実行中であるか

@@ -5,7 +5,7 @@ source $THIS_SCRIPT_PATH/../setup_env.sh
 
 cp $THIS_SCRIPT_PATH/.zshrc ~/
 cp $THIS_SCRIPT_PATH/.zprofile ~/
-cp -pr $THIS_SCRIPT_PATH/.zsh/ ~/
+cp -r $THIS_SCRIPT_PATH/.zsh/ ~/
 
 
 # dotfileの展開先でgithubにアクセスできない場合はzipにしたプラグインのファイルを展開するスクリプト
