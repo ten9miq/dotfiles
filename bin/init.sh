@@ -25,8 +25,29 @@ ln -fs $copy_target/extract $copy_target/ext
 if [ $fzf_extract == 1 ]; then
   tar -xf $THIS_SCRIPT_PATH/.fzf.tgz -C $copy_target
 else
-  git clone --depth 1 https://github.com/junegunn/fzf.git $copy_target/.fzf
-  $copy_target/.fzf/install --bin
+  if [ -d $copy_target/.fzf ]; then
+    if type git > /dev/null 2>&1 ; then
+      \cd $copy_target/.fzf
+      branch_name=`git rev-parse --abbrev-ref HEAD`
+      if [ ${branch_name} = 'master' -o ${branch_name} = 'before_zinit' ]; then
+        git fetch -p || { \cd - ; return 1; }
+        git checkout -q ${branch_name}
+        latest_rev=$(git ls-remote origin ${branch_name} | awk '{print $1}')
+        current_rev=$(git rev-parse HEAD)
+        if [ "$latest_rev" != "$current_rev" ]; then
+          # 最新じゃない場合には更新処理を行う
+          git reset --hard $(git log --pretty=format:%H | head -1)
+          git pull origin ${branch_name}
+        fi
+      else
+        echo "dotfile not master branch. current branch is ${branch_name}."
+      fi
+      \cd - >/dev/null
+    fi
+  else
+    git clone --depth 1 https://github.com/junegunn/fzf.git $copy_target/.fzf
+    $copy_target/.fzf/install --bin
+  fi
 fi
 ln -fs $copy_target/.fzf/bin/fzf $copy_target/fzf
 
