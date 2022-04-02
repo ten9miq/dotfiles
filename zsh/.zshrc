@@ -21,48 +21,42 @@ bindkey -e  # emacsモードで使う
 # -----------------------------
 # zinitによるplugin設定
 # -----------------------------
-if [ ! -f $HOME/.zinit/bin/zinit.zsh ]; then
-  git clone --depth=1 https://github.com/zdharma/zinit.git $HOME/.zinit/bin
+zi_home="${HOME}/.zi"
+if [ ! -f ${zi_home}bin/zi.zsh ]; then
+  git clone --depth=1 https://github.com/z-shell/zi.git ${zi_home}/bin
 fi
 
-declare -A ZINIT  # initial Zplugin's hash definition, if configuring before loading Zplugin, and then:
-if [ $(uname -r | grep -i microsoft) ] ; then
-  # wslの場合あまりにも遅いので補完ファイルのセキュアリードオプションを無効化する
-  # またwslだとzinitでcloneされたものが777の権限でIgnore insecure directoriesの警告がでるのでそれを無視する
-  ZINIT[COMPINIT_OPTS]=-C
-fi
-
-source $HOME/.zinit/bin/zinit.zsh
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+source "${zi_home}/bin/zi.zsh"
+autoload -Uz _zi
+(( ${+_comps} )) && _comps[zi]=_zi
 
 # 補完の強化。
-zinit ice blockf depth'1'; zinit light zsh-users/zsh-completions
+zi ice blockf depth'1'; zi light zsh-users/zsh-completions
 # 入力中の文字に応じて灰色の文字でコマンド候補を表示してくれる
-zinit ice depth'1'; zinit light zsh-users/zsh-autosuggestions
+zi ice depth'1'; zi light zsh-users/zsh-autosuggestions
 # コマンド入力中に上キーや下キーを押した際の履歴の検索を使いやすくする
-zinit ice if"[[ __zsh_version > 4.3 ]]"; zinit light zsh-users/zsh-history-substring-search
+zi ice if"[[ __zsh_version > 4.3 ]]"; zi light zsh-users/zsh-history-substring-search
 # コマンドのシンタックスハイライト
-zinit ice depth'1'; zinit light zdharma/fast-syntax-highlighting
+zi ice depth'1'; zi light zdharma/fast-syntax-highlighting
 # cdコマンドをfzfなどと組み合わせ便利にする
-zinit ice silent pick"init.sh" depth'1'; zinit load "b4b4r07/enhancd"
+zi ice silent pick"init.sh" depth'1'; zi load "b4b4r07/enhancd"
 # gitリポジトリ内に居る時にリポジトリのルートに移動する
-zinit ice depth'1'; zinit light mollifier/cd-gitroot
+zi ice depth'1'; zi light mollifier/cd-gitroot
 # 補完の動的再読み込みを行う
-zinit ice depth'1'; zinit light mollifier/zload
+zi ice depth'1'; zi light mollifier/zload
 # rmの代替として.gomiフォルダにゴミを捨てる(If fzf is already installed)
-zinit ice depth'1'; zinit light b4b4r07/zsh-gomi
+zi ice depth'1'; zi light b4b4r07/zsh-gomi
 # 現在のパスのgitの情報を表示するプラグイン
-zinit ice depth'1'; zinit light yonchu/zsh-vcs-prompt
+zi ice depth'1'; zi light yonchu/zsh-vcs-prompt
 # コマンドの-hで表示されるもので補完ファイルを生成する
 export GENCOMPL_FPATH=$HOME/.zsh/complete
-# zinit ice has'python'; zinit light RobSis/zsh-completion-generator
+# zi ice has'python'; zi light RobSis/zsh-completion-generator
 # kコマンドでlsより見やすい表示をおこなう
-zinit ice depth'1'; zinit light supercrabtree/k
+zi ice depth'1'; zi light supercrabtree/k
 # fzfの補完とキーバインドを追加
-zinit ice multisrc"shell/{completion,key-bindings}.zsh" \
+zi ice multisrc"shell/{completion,key-bindings}.zsh" \
   id-as"junegunn/fzf_completions" pick"/dev/null" depth'1';
-zinit light junegunn/fzf
+zi light junegunn/fzf
 
 # -----------
 # plugin設定
