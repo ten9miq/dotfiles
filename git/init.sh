@@ -15,7 +15,6 @@ if [ ! -e "${HOME}/.gitconfig.local" ]; then
     name = 53JIlLenWe11
     email = ruin.of.messger@gmail.com
 [core]
-    autocrlf = input
 EOF
 
   if [ `os_type` == 'linux' ]; then
