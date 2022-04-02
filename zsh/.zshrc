@@ -22,7 +22,7 @@ bindkey -e  # emacsモードで使う
 # zinitによるplugin設定
 # -----------------------------
 zi_home="${HOME}/.zi"
-if [ ! -f ${zi_home}bin/zi.zsh ]; then
+if [ ! -f ${zi_home}/bin/zi.zsh ]; then
   git clone --depth=1 https://github.com/z-shell/zi.git ${zi_home}/bin
 fi
 
