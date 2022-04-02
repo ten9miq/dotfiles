@@ -2,8 +2,8 @@
   path = .gitconfig.local
 # 環境に合わせて下記を埋めて上記ファイルに記載
 # [user]
-#   name = 
-#   email = 
+#   name =
+#   email =
 
 # [credential]
 #   helper = wincred
@@ -57,7 +57,10 @@
   m = merge
 
   co = checkout
-  com = checkout -B master origin/master # remoteの素のmasterへ強制切り替え
+  # remoteの素のmasterへ強制切り替え
+  cor = "! f () { m=$(git rev-parse --symbolic --verify --quiet main || git rev-parse --symbolic --verify --quiet master); git checkout -B ${m} origin/${m}; }; f"
+  # 最新を取り込んだmasterへ切り替え
+  com = "! f () { remote_head=$(git symbolic-ref --quiet refs/remotes/origin/HEAD); remote_head=${remote_head#refs/remotes/origin/}; git checkout ${remote_head:-$(git rev-parse --symbolic --verify --quiet main || git rev-parse --symbolic --verify --quiet master)};  }; f"
   sh = show
   s = status
   st = status --short --branch #  --short:show status concisely --branch:show branch information
@@ -99,4 +102,3 @@
   delete-merged-branch = "!f () { git branch --merged|egrep -v '\\*|develop|master' | xargs -p --no-run-if-empty git branch -d; };f"
   # マージ済みブランチの削除(確認せず実行)とリモート先で削除された追跡ブランチの削除を行う
   all-branch-clean = "!f () { git branch --merged|egrep -v '\\*|develop|master' | xargs --no-run-if-empty git branch -d; };f && git remote prune origin"
-
