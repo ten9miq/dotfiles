@@ -23,7 +23,7 @@ else
       \cd $HOME/dotfiles
       branch_name=`git rev-parse --abbrev-ref HEAD`
       if [ ${branch_name} = 'master' -o ${branch_name} = 'before_zinit' ]; then
-        git fetch -p || { \cd - ; return 1; }
+        git fetch -p || { \cd - >/dev/null ; return 1; }
         git checkout -q ${branch_name}
         latest_rev=$(git ls-remote origin ${branch_name} | awk '{print $1}')
         current_rev=$(git rev-parse HEAD)
@@ -38,7 +38,7 @@ else
       else
         echo "dotfile not master branch. current branch is ${branch_name}."
       fi
-      \cd -
+      \cd - >/dev/null
     fi
   fi
 fi
