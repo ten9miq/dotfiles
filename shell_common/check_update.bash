@@ -32,6 +32,7 @@ else
           git reset --hard $(git log --pretty=format:%H | head -1)
           git pull origin ${branch_name}
           ./setup.sh
+          read -p " Enter to close:" # 一時停止
         fi
       else
         echo "dotfile not master branch. current branch is ${branch_name}."
