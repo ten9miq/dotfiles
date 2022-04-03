@@ -9,7 +9,7 @@ cp -r $THIS_SCRIPT_PATH/.zsh/ ~/
 
 
 # # dotfileの展開先でgithubにアクセスできない場合はzipにしたプラグインのファイルを展開するスクリプト
-#  if [ `os_type` = 'linux'  ]; then
+#  if [ `os_type` = 'linux' ]; then
 #    zi_path="$HOME/.zi/"
 #    mkdir -p $zi_path/plugins/
 #    tar zxf $THIS_SCRIPT_PATH/zi.tgz/bin.tgz -C $zi_path

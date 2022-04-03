@@ -52,7 +52,7 @@ cpBkMv() {
         # 差分あり
         mkdir -p $bak_path
         DATE=$(date +%Y%m%d_%H%M%S)
-        \cp -f -b --suffix=_$DATE $1 $2  && \mv ${target_dir}/${source_name}_$DATE $bak_path
+        \cp -f -b --suffix=_$DATE $1 $2 && \mv ${target_dir}/${source_name}_$DATE $bak_path
       fi
     else
       # 存在しない
