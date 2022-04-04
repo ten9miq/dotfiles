@@ -16,7 +16,7 @@ cp -r $THIS_SCRIPT_PATH/.zsh/ ~/
 
 #    find $THIS_SCRIPT_PATH/zi.tgz/plugins/ -type f -name "*.tgz" | xargs -IXXX tar zxf XXX -C $zi_path/plugins/
 
-#    ln -fs $zi_path/bin/_zi $HOME/.zi/plugins/_local---zi/
+#    ln -fs $zi_path/bin/lib/_zi $HOME/.zi/plugins/_local---zi/
 #    if `has zsh` ; then
 #      log_print "zi creinstall exec"
 #      # ~/.cache/fsh/secondary_theme.zshがないとcreinstall時にfast-syntax-highlightingが外部へcurlで取りに行くので注意
