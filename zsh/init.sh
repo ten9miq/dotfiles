@@ -19,6 +19,7 @@ cp -r $THIS_SCRIPT_PATH/.zsh/ ~/
 #    ln -fs $zi_path/bin/_zi $HOME/.zi/plugins/_local---zi/
 #    if `has zsh` ; then
 #      log_print "zi creinstall exec"
+#      # ~/.cache/fsh/secondary_theme.zshがないとcreinstall時にfast-syntax-highlightingが外部へcurlで取りに行くので注意
 #      zsh -ic "zi creinstall -q $HOME/.zi"
 #    else
 #      skip_print 'not install zsh. please zsh installed to "zi creinstall -q $HOME/.zi" commnad'
