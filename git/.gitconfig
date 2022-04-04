@@ -60,7 +60,7 @@
   # remoteの素のmasterへ強制切り替え
   com = "! f () { m=$(git rev-parse --symbolic --verify --quiet main || git rev-parse --symbolic --verify --quiet master); git checkout -B ${m} origin/${m}; }; f"
   # 最新を取り込んだmasterへ切り替え
-  cor = "! f () { remote_head=$(git symbolic-ref --quiet refs/remotes/origin/HEAD); remote_head=${remote_head#refs/remotes/origin/}; git checkout ${remote_head:-$(git rev-parse --symbolic --verify --quiet main || git rev-parse --symbolic --verify --quiet master)};  }; f"
+  cor = "! f () { remote_head=$(git symbolic-ref --quiet refs/remotes/origin/HEAD); remote_head=${remote_head#refs/remotes/origin/}; git checkout ${remote_head:-$(git rev-parse --symbolic --verify --quiet main || git rev-parse --symbolic --verify --quiet master)}; }; f"
   sh = show
   s = status
   st = status --short --branch #  --short:show status concisely --branch:show branch information
