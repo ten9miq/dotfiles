@@ -14,7 +14,6 @@ if [ ! -e "${HOME}/.gitconfig.local" ]; then
 [user]
     name = 53JIlLenWe11
     email = ruin.of.messger@gmail.com
-[core]
 EOF
 
   if [ `os_type` == 'linux' ]; then
