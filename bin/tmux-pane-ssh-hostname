@@ -37,4 +37,10 @@ if [[ $1 = "ssh" ]]; then
   ssh_hostname="$user@$host"
 fi
 
-echo $ssh_hostname
+if [ -z $3 ]; then
+  # 変数が空であれば、前後のスペースが有効なecho
+  echo "$ssh_hostname "
+else
+  #  ログ書き出しであるため、前後のスペースはtrimされる
+  echo $ssh_hostname
+fi
