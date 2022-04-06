@@ -34,7 +34,7 @@ if [[ $1 = "ssh" ]]; then
       fi
     done
   fi
-  ssh_hostname="$user@$host "
+  ssh_hostname="$user@$host"
 fi
 
 echo $ssh_hostname
