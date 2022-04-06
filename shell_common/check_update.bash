@@ -34,7 +34,7 @@ else
           ./setup.sh
           # tmuxがある環境であれば一時停止してログが確認できるようにする
           if type tmux > /dev/null 2>&1; then
-            if test -z "$TMUX"; thne # if not inside a tmux session
+            if test -z "$TMUX"; then # if not inside a tmux session
               echo "Press Enter key to continue."
               read wait # 一時停止
             fi
