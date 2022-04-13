@@ -25,11 +25,9 @@ if dein#load_state(s:dein_dir)
   " dein Do not manage dein at Vim 7.4, as it is not HEAD
   if v:version != 704
     call dein#add('Shougo/dein.vim')
-    call dein#add('cohama/lexima.vim')
   else
     " vim 7.4だとインサートモード移行時にエラーがでるので
     " 以前のバージョンを指定することで回避する
-    call dein#add('cohama/lexima.vim', { 'rev': 'aef88ca' })
   endif
 
   " プラグインリストを収めた TOML ファイル
