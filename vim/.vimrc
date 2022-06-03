@@ -190,12 +190,9 @@ let g:lightline = {
     \       'right': [
     \           [ 'lineinfo' ],
     \           [ 'percent' ],
-    \           [ 'char_count', 'charvaluehex', 'fileformat', 'fileencoding', 'filetype' ]
+    \           [ 'charvaluehex', 'fileformat', 'fileencoding', 'filetype' ]
     \       ]
-    \     },
-    \     'component_function': {
-    \       'char_count': 'LightlineCharCount'
-    \     },
+    \     }
     \ }
 
 " 上記でモード表記されるのでデフォルトのモード表記を非表示にする
@@ -764,7 +761,7 @@ function! LightlineCharCount() abort
 endfunction
 
 " -------------------------------------------------
-" 選択範囲の行の文字数をカウント 選択しEnterで表示
+" 選択範囲の行と全体の文字数をカウント 選択しEnterで表示
 " -------------------------------------------------
 function! g:LineCharVCount() range
   let l:result = 0
@@ -772,7 +769,41 @@ function! g:LineCharVCount() range
     let l:line = getline(l:linenum)
     let l:result += strlen(substitute(l:line, ".", "x", "g"))
   endfor
-  echo '選択行の文字数:' . l:result
+  let l:result = substitute(l:result, '\d\(\%\(\d\{3\}\)\+\(\d\)\@!\)\@=', '\0,', "g")
+  let l:status_count = ''
+  echo '改行を除外した文字数:' . l:result . '(選択行)/' . BuffAllWordCount('char')
 endfunction
 command! -range LineCharVCount <line1>,<line2>call g:LineCharVCount()
-vnoremap<silent> <CR> :LineCharVCount<CR>"}}}
+vnoremap<silent> <CR> :LineCharVCount<CR>
+
+"全体と選択業の上の文字数カウント
+let s:BuffAllWordCountStr = ''
+let s:BuffAllWordCountDict = {'word': 2, 'char': 3, 'byte': 4}
+function! BuffAllWordCount(...)
+    if a:0 == 0
+        return s:BuffAllWordCountStr
+    endif
+    let cidx = 3
+    silent! let cidx = s:BuffAllWordCountDict[a:1]
+    let s:BuffAllWordCountStr = ''
+    let s:saved_status = v:statusmsg
+    exec "silent normal! g\<c-g>"
+
+    if v:statusmsg !~ '^--'
+        let str = ''
+        silent! let str = split(v:statusmsg, ';')[cidx]
+        let cur = str2nr(matchstr(str, '\d\+'))
+        let end = str2nr(matchstr(str, '\d\+\s*$'))
+        if a:1 == 'char'
+            " ここで(改行コード数*改行コードサイズ)を'g<C-g>'の文字数から引く
+            let cr = &ff == 'dos' ? 2 : 1
+            let cur -= cr * (line('.') - 1)
+            let end -= cr * line('$')
+        endif
+        let cur = substitute(cur, '\d\(\%\(\d\{3\}\)\+\(\d\)\@!\)\@=', '\0,', "g")
+        let end = substitute(end, '\d\(\%\(\d\{3\}\)\+\(\d\)\@!\)\@=', '\0,', "g")
+        let s:BuffAllWordCountStr = printf('%s(全体):%s(現在行より上)', end, cur)
+    endif
+    let v:statusmsg = s:saved_status
+    return s:BuffAllWordCountStr
+endfunction
