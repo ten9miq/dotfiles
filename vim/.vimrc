@@ -807,3 +807,9 @@ function! BuffAllWordCount(...)
     let v:statusmsg = s:saved_status
     return s:BuffAllWordCountStr
 endfunction
+
+" -------------------------------------------------
+" ANSI color codesを除去する
+" -------------------------------------------------
+command! AnsiEscDel %s/\%x1b\[[0-9;]*m//g
+
