@@ -420,6 +420,7 @@ alias -g J='| python -c "import json;print json.dumps(json.loads(raw_input()),en
 alias -g G='| grep'
 alias -g GI='| grep -ri' # -r:ディレクトリ内も検索対象とする -i:大文字と小文字を区別せず検索する
 alias -g S='sudo '
+alias -g E='sudoE '
 alias -g R='rsync '
 alias -g Z='| fzf'
 alias -g W='| wc -l' # -l:行単位で数える

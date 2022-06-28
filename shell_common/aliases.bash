@@ -19,6 +19,7 @@ alias cp='cp -i'        # -i    コピー時に上書きされるファイルが
 alias mv='mv -i'        # -i    移動時に上書きされるものがある場合、確認が入る。
 alias rm='rm -i'        # -i    ファイルの削除前に確認が入る。
 alias sudo='sudo '      # sudoのあとのaliasを展開するようにするために追加
+alias sudoE='sudo -E '      # sudo -E(現在の環境変数をそのまま保持する)のあとのaliasを展開するようにするために追加
 alias sv='sudo_vim'
 alias svi='sudo_vim'
 alias hsg='history | grep'
@@ -73,11 +74,10 @@ sudo_vim(){
 # ------------------------------------
 alias d="docker"
 alias d-c="docker-compose"
-alias sd="sudo docker"
-alias sd-c="sudo docker-compose"
 
 alias dc="docker container"
 alias di="docker image"
+alias dp="docker compose"
 
 #------------------------------------------------
 # docker list segments command
