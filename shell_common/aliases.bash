@@ -28,6 +28,8 @@ alias sg="sudo_git"
 alias cdu='cd-gitroot' # zshのcd-gitrootのalias
 alias du_sort='du -h --max-depth=1 | sort -hr' # コマンドを実行した場所のディレクトリをサイズの大きい順に表示する
 alias rsync='rsync -ah --no-i-r --info=progress2'
+# rsyncで再開可能なファイル転送 https://manpages.org/rsync
+alias rsyncR='rsync -ah --no-i-r --info=progress2 --checksum --append-verify --partial'
 
 # mysqlのページャを設定して実行するコマンド
 alias mysqll='mysql --pager="less -S -N -i -F -X --shift=30"'
