@@ -257,8 +257,11 @@ fi
 setopt complete_in_word
 # コマンドミスを修正
 setopt correct
-# コマンドライン全てのスペルチェックをする
+# コマンドライン上の引数など全てのスペルチェックをする
 setopt correct_all
+# correctでの修正候補の例外として設定する
+CORRECT_IGNORE='_*' # コマンド名として_で始まる補完関数を修正候補外にする
+CORRECT_IGNORE_FILE='.*' # ファイル名としてドットファイルを修正候補外にする
 # 補完候補が複数ある時、一覧表示 (auto_list) せず、すぐに最初の候補を補完する
 setopt menu_complete # 強制で最初のが選択されるのが使いづらいので無効化
 # 補完候補をできるだけ詰めて表示する
