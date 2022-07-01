@@ -290,6 +290,8 @@ setopt no_complete_aliases
 setopt always_to_end
 # aliasが展開されていない状態で補完を行う
 # setopt complete_aliases
+# グロブ表現を解釈してファイルが存在しない場合のエラーを抑止する
+setopt nonomatch
 
 # コマンドが間違えている時の指摘時の表示を変更
 SPROMPT="correct: $RED%R$DEFAULT -> $GREEN%r$DEFAULT ? [No/yes/abort/edit] => "
