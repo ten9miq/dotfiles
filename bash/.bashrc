@@ -116,6 +116,11 @@ export PROMPT_COMMAND="dispatch"
 # -----------------------------
 [[ $- == *i* ]] && source "$HOME/.bash/.fzf/shell/completion.bash" 2> /dev/null
 
+# kubectlの補完読み込み
+if (type kubectl &> /dev/null) ;then
+  source <(kubectl completion bash)
+fi
+
 # -----------------------------
 # Key bindings
 # -----------------------------

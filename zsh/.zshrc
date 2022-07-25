@@ -253,6 +253,11 @@ else
   autoload -Uz compinit ; compinit
 fi
 
+# kubectlの補完読み込み
+if (type kubectl &> /dev/null) ;then
+  source <(kubectl completion bash)
+fi
+
 # 単語の入力途中でもTab補完を有効化
 setopt complete_in_word
 # コマンドミスを修正
