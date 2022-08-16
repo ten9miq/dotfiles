@@ -425,7 +425,7 @@ compdef sudo_git=git
 alias -g L='| less'
 alias -g H='| head -n 20'
 alias -g T='| tail -n 20'
-alias -g D="sed -n '0,\$p' " # ファイルの指定範囲行を抽出(巨大なファイルから取り出す際に)
+alias -g D="sed -n '1,\$p' " # ファイルの指定範囲行を抽出(巨大なファイルから取り出す際に)
 alias -g J='| python -c "import json;print json.dumps(json.loads(raw_input()),ensure_ascii=False,indent=4,separators=('\'','\'', '\'': '\''))"'
 alias -g G='| grep'
 alias -g GI='| grep -ri' # -r:ディレクトリ内も検索対象とする -i:大文字と小文字を区別せず検索する
