@@ -3,7 +3,7 @@ alias v='vim'
 alias vi='vim'
 # -n スワップファイルなし -u NONE pluginもvimrcも読み込まない -i NONE viminfoを読み込まない
 # noremapで<Right> <Left>が使えないのでキーコードで設定
-alias vin='vim -n -u NONE -i NONE --cmd "set nowrap" --cmd "set number" --cmd "noremap OC zL" --cmd "noremap OD zH"'
+alias vin='vim -n -u NONE -i NONE --cmd "set nowrap" --cmd "set number" --cmd "set hlsearch" --cmd "noremap OC zL" --cmd "noremap OD zH"'
 alias l='\ls'
 alias ls='\ls -AXFhv --group-directories-first --color=auto'
 
