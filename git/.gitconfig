@@ -70,11 +70,14 @@
   cl = clone --recursive  # cloneの時､同時にsubmoduleもクローンしてくる
   ft = fetch
   ftp = fetch --prune # リモートで削除されているリモートブランチを削除する
+  ftu = fetch --unshallow # g cl --depth=1した後に全コミットを取ってくる
+  remote-origin-all-branch-activation = config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+  unshallow = !git remote-origin-all-branch-activation && git ftu # --depth=1の解除をまとめた
   pl = pull
   ps = push
-  re = remote
   rb = rebase
   cp = cherry-pick
+  re = remote
   # リモートで削除されたブランチをローカルで削除 または git ftpでも同じ
   remote-deleted-baranch-deletion = remote prune origin
   # リモートURLの上書き
