@@ -58,9 +58,9 @@
 
   co = checkout
   # remoteのmasterへ強制切り替え
-  com = "! f () { m=$(git symbolic-ref --quiet refs/remotes/origin/HEAD); m=${m#refs/remotes/origin/}; m=${m:-$(git rev-parse --symbolic --verify --quiet main || git rev-parse --symbolic --verify --quiet master)}; git checkout -B ${m} origin/${m}; }; f"
+  cor = "! f () { m=$(git symbolic-ref --quiet refs/remotes/origin/HEAD); m=${m#refs/remotes/origin/}; m=${m:-$(git rev-parse --symbolic --verify --quiet main || git rev-parse --symbolic --verify --quiet master)}; git checkout -B ${m} origin/${m}; }; f"
   # 現在のローカルmasterへ切り替え
-  cor = "! f () { remote_head=$(git symbolic-ref --quiet refs/remotes/origin/HEAD); remote_head=${remote_head#refs/remotes/origin/}; git checkout ${remote_head:-$(git rev-parse --symbolic --verify --quiet main || git rev-parse --symbolic --verify --quiet master)}; }; f"
+  com = "! f () { remote_head=$(git symbolic-ref --quiet refs/remotes/origin/HEAD); remote_head=${remote_head#refs/remotes/origin/}; git checkout ${remote_head:-$(git rev-parse --symbolic --verify --quiet main || git rev-parse --symbolic --verify --quiet master)}; }; f"
   sh = show
   s = status
   st = status --short --branch #  --short:show status concisely --branch:show branch information
