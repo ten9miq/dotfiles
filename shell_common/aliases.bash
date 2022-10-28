@@ -35,7 +35,7 @@ alias rsyncR='rsync -ah --no-i-r --info=progress2 --checksum --append-verify --p
 # less  --shift=0 水平スクロールが画面半分移動
 alias mysqll='mysql --pager="less -S -N -i -F -X --shift=0"'
 # vim  3<c-w>s 3行で行分割 3<c-w> _ で高さ指定し直し 閉じる時は :qa
-alias mysqlv='mysql --pager="vim -R - -c \"set ft=sql\" -c \"set nowrap\" -c \"noremap <Right> zL\" -c \"noremap <Left> zH\" -c \"set scrollopt=hor\" -c \"set scb\""'# mysqlのページャを設定して実行するコマンド
+alias mysqlv='mysql --pager="vim -R - -c \"set ft=sql\" -c \"set nowrap\" -c \"noremap <Right> zL\" -c \"noremap <Left> zH\" -c \"set scrollopt=hor\" -c \"set scb\" -c \"3sp\" -c \"winc j\""'# mysqlのページャを設定して実行するコマンド
 
 alias watch='watch -n0.3 '
 waps(){
