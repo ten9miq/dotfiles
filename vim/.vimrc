@@ -170,7 +170,7 @@ set showmatch
 " Vimの「%」を拡張する
 source $VIMRUNTIME/macros/matchit.vim
 " ステータスラインにてファイルエンコーディングやファイルフォーマット(改行コード)を表示
-set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,%l)/%L%8P\ 
+set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,%l)/%L%8P\
 " コマンドラインの補完
 set wildmode=list:longest
 " showbreaks 折り返されたところを見やすく
@@ -256,7 +256,7 @@ nnoremap <silent> <leader>v :w<CR>
 " w!!でsudoを忘れても保存
 cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 " 複数ウィンドウ開いていても全部閉じるコマンドのエイリアス
-cnoremap qq :qa!
+cnoremap qq qa!
 
 " 折り返し時に表示行単位での移動できるようにする
 nnoremap j gj
