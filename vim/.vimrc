@@ -253,8 +253,10 @@ nnoremap <silent> <leader>a ggVG<CR>
 noremap <silent> <leader>p "0p<CR>
 " 保存
 nnoremap <silent> <leader>v :w<CR>
-"" w!!でsudoを忘れても保存
+" w!!でsudoを忘れても保存
 cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
+" 複数ウィンドウ開いていても全部閉じるコマンドのエイリアス
+cnoremap qq :qa!
 
 " 折り返し時に表示行単位での移動できるようにする
 nnoremap j gj
@@ -812,4 +814,3 @@ endfunction
 " ANSI color codesを除去する
 " -------------------------------------------------
 command! AnsiEscDel %s/\%x1b\[[0-9;]*m//g
-
