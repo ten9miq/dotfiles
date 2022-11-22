@@ -52,3 +52,5 @@ if [ -d "$HOME/.nvm" ]; then
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 fi
 
+# 共用ライブラリが格納されているパスを指定
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
