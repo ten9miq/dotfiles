@@ -1,3 +1,8 @@
+# Soource global definitions
+if [ -f /etc/zshrc ]; then
+	. /etc/zshrc
+fi
+
 # zshの起動処理の速度調査の実行
 # zmodload zsh/zprof && zprof
 zshtime(){
