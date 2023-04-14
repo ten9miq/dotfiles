@@ -124,4 +124,6 @@ fi
 # -----------------------------
 # Key bindings
 # -----------------------------
+bind '"\C-j": backward-word'
+bind '"\C-g": forward-word'
 source "$HOME/.bash/.fzf/shell/key-bindings.bash"
