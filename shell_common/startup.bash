@@ -8,7 +8,7 @@ if [ -d $SSH_DIR ];then
   # SSHで接続していないならssh-agent実行処理を行う
   if [ -z "$SSH_CONNECTION" ]; then
     # 秘密鍵が1つ以上あるかチェック
-    FIND_KEY="find $SSH_DIR -name 'id_rsa*' -name '*.pem' -not -name '*.pub'"
+    FIND_KEY="find $SSH_DIR -name 'id_rsa*' -or -name '*.ppk' -name '*.pem' -not -name '*.pub'"
     if [ $(eval $FIND_KEY | wc -l) -gt 0 ];then
       SSH_AGENT_FILE=$HOME/.ssh-agent
       [ -f $SSH_AGENT_FILE ] && source $SSH_AGENT_FILE
