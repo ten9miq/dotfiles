@@ -251,8 +251,9 @@ if [ -e ~/.zsh/complete/  ]; then
 fi
 # 自動補完を有効にする
 # これはほかの補完ファイルを読み込んだ後に実行しないと意味がない
-if [ $(uname -r | grep -i microsoft) ] ; then
+if [[ $(uname -r) == *microsoft* || $EUID -eq 0 ]]; then
   # wslの場合あまりにも遅いので補完ファイルのセキュアリードオプションを無効化する
+  # また、rootで.zshrc使い回す場合にも問題となるため、こちらのオプションを使う
   autoload -Uz compinit ; compinit -C
 else
   autoload -Uz compinit ; compinit
@@ -423,8 +424,10 @@ chpwd() { ls_abbrev }
 # setopt no_complete_aliasesでalisaを展開したあととして補完が対応できるはずだが
 # alias sg='sudo git -c xxxx'を展開すると-あとのパラメータの補完ができない
 # そのためaliasに関数を紐付けることで補完が効くようにする
-# compinitのあとでないとcomdefのエラーを吐く
-compdef sudo_git=git
+# 現在のユーザーがrootでない場合にのみ実行する、rootは不要なコマンドであるし、ここでエラーが発生するため
+if [[ $EUID -ne 0 ]]; then
+  compdef sudo_git=git
+fi
 
 # zshのglobal alias
 alias -g L='| less'

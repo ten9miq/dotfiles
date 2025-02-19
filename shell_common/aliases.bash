@@ -20,6 +20,7 @@ alias mv='mv -i'        # -i    移動時に上書きされるものがある場
 alias rm='rm -i'        # -i    ファイルの削除前に確認が入る。
 alias sudo='sudo '      # sudoのあとのaliasを展開するようにするために追加
 alias sudoE='sudo -E '      # sudo -E(現在の環境変数をそのまま保持する)のあとのaliasを展開するようにするために追加
+alias rootshell='sudo -E env PATH="$(sudo printenv PATH):$PATH" "$SHELL" -l'
 alias sv='sudo_vim'
 alias svi='sudo_vim'
 alias hsg='history | grep'
