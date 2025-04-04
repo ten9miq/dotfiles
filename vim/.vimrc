@@ -302,6 +302,9 @@ nmap N Nzz
 nmap * *zz
 nmap # #zz
 
+" 検索モード時にCtrl-r Ctrl-/でレジスタの内容を自動エスケープしてペーストする
+cnoremap <C-r><C-_> <C-r>=substitute(getreg('"'), '[\/.*~[]', '\\&', 'g')<CR>
+
 " filetype=sqlの時にC-cの動作が遅延することへの対策
 " :verbose imap <buffer> <C-c> で確認できる
 let g:ftplugin_sql_omni_key = '<C-j>'
