@@ -440,7 +440,9 @@ alias -g GI='| grep -ri' # -r:ディレクトリ内も検索対象とする -i:�
 alias -g S='sudo '
 alias -g E='sudoE '
 alias -g R='rsync '
-alias -g U='/mnt/c/Users/$USER/Downloads/'
+# WSLとwindowsのユーザ名が違う場合に対応
+U_PATH="/mnt/c/Users/$(cmd.exe /C 'echo %USERNAME%' 2>/dev/null | tr -d '\r')/Downloads"
+alias -g U="$U_PATH"
 alias -g V='| tovim'
 alias -g Z='| fzf'
 alias -g W='| wc -l' # -l:行単位で数える
