@@ -684,10 +684,18 @@ command! JsonFormatUNI :execute '%!python -m json.tool'
 " -------------------------------------------------
 " 文字コードの自動認識
 " -------------------------------------------------
-if &encoding !=# 'utf-8'
-  set encoding=japan
-  set fileencoding=japan
-endif
+
+" 新規ファイルや空ファイルをUTF-8で保存したい場合、encodingやfileencodingを
+" 強制的にjapan(iso-2022-jp)へ変更するこのブロックは不要。
+" fileencodingsの先頭をutf-8にすることでUTF-8をデフォルトにできるため、コメントアウト。
+" 日本語自動判別や既存の日本語ファイルの互換性は維持される。
+" 必要に応じて復帰可能なよう、設定自体は残しておく。
+" （参考：sjisやeucの自動判別はfileencodingsでカバーされる）
+"if &encoding !=# 'utf-8'
+"  set encoding=japan
+"  set fileencoding=japan
+"endif
+
 if has('iconv')
   let s:enc_euc = 'euc-jp'
   let s:enc_jis = 'iso-2022-jp'
@@ -720,6 +728,8 @@ if has('iconv')
       let &fileencodings = &fileencodings .','. s:enc_euc
     endif
   endif
+  " fileencodingsの先頭にutf-8を必ず配置（重複があれば最初のだけを残す）
+  let &fileencodings = 'utf-8,' . substitute(&fileencodings, '\C^utf-8,', '', '')
   " 定数を処分
   unlet s:enc_euc
   unlet s:enc_jis
