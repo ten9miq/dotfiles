@@ -21,6 +21,19 @@ else
     # Linuxの場合~/dotfile/の更新がないかチェックし、更新あればgit pullしてsetup.shを実行する
     if type git > /dev/null 2>&1 && [ -d $HOME/dotfiles ] ; then
       \cd $HOME/dotfiles
+      worktree_status=$(git status --porcelain 2>/dev/null) || {
+        echo 'dotfilesの状態を確認できなかったため、自動更新を中止します。'
+        \cd - >/dev/null
+        return 1
+      }
+      if [ -n "$worktree_status" ]; then
+        echo 'dotfilesに未コミットの変更があるため、自動更新を中止します。'
+        \cd - >/dev/null
+        unset worktree_status
+        return 0
+      fi
+      unset worktree_status
+
       if \git ls-remote -h `\git remote -v | sed -e 's/\s\s*/ /g' | cut -d ' ' -f 2` >/dev/null 2>&1 ; then
         branch_name=`git rev-parse --abbrev-ref HEAD`
         if [ ${branch_name} = 'master' -o ${branch_name} = 'before_zinit' ]; then
