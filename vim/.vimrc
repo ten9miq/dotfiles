@@ -3,13 +3,24 @@ let s:dein_dir = expand('~/.vim/dein')
 
 " dein.vim 本体
 " dein.vim がなければ github から落としてくる
+if v:version == 704
+  let s:dein_rev = '1.5'
+elseif v:version >= 800 && v:version < 802
+  let s:dein_rev = '2.2'
+endif
+
 if &runtimepath !~# '/dein.vim'
   let s:dein_path = expand('~/.vim/dein/repos/github.com/Shougo/dein.vim')
   if !isdirectory(s:dein_path)
-    call system('git clone https://github.com/Shougo/dein.vim ' . s:dein_path)
-    if v:version == 704
-      " vim 7.4では1.5のdeinでないと動作しないので切り替え処理を行う
-      call system('cd '. s:dein_path . ' && git checkout -b 1.5 1.5')
+    call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_path))
+  endif
+  if exists('s:dein_rev') && isdirectory(s:dein_path)
+    let s:current_dein_rev = substitute(system(
+          \ 'cd ' . shellescape(s:dein_path) .
+          \ ' && git describe --tags --exact-match HEAD 2>/dev/null'), '\n\+$', '', '')
+    if s:current_dein_rev !=# s:dein_rev
+      call system('cd ' . shellescape(s:dein_path) .
+            \ ' && git checkout -q ' . shellescape(s:dein_rev))
     endif
   endif
   set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
@@ -21,12 +32,11 @@ let g:dein#types#git#clone_depth = 1
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
-  " dein Do not manage dein at Vim 7.4, as it is not HEAD
-  if v:version != 704
+  " Vim 8.2未満では固定したdeinを現行HEADへ更新しない
+  if v:version >= 802
     call dein#add('Shougo/dein.vim')
   else
-    " vim 7.4だとインサートモード移行時にエラーがでるので
-    " 以前のバージョンを指定することで回避する
+    " Vim 7.4は1.5、Vim 8.0〜8.1は2.2を使用する
   endif
 
   " プラグインリストを収めた TOML ファイル

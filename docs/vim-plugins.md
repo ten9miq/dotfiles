@@ -20,7 +20,7 @@ dein.vim 本体を含めると管理対象は合計27件である。このほか
 
 | プラグイン | 用途 | この設定での扱い |
 |---|---|---|
-| [Shougo/dein.vim](https://github.com/Shougo/dein.vim) | プラグイン管理 | `.vimrc` から自動取得。Vim 7.4の場合だけタグ `1.5` を使用 |
+| [Shougo/dein.vim](https://github.com/Shougo/dein.vim) | プラグイン管理 | `.vimrc` から自動取得。Vim 7.4ではタグ `1.5`、Vim 8.0〜8.1ではタグ `2.2` を使用 |
 | [wsdjeg/dein-ui.vim](https://github.com/wsdjeg/dein-ui.vim) | deinの更新UI | `:DeinUpdate` による一括更新を想定 |
 
 ### 移動とテキスト編集
@@ -141,7 +141,7 @@ quickrunについては、設定先が現行開発元 `thinca/vim-quickrun` で�
 ### 1. dein.vimは保守モード
 
 dein.vimの公式READMEは、活発な開発を終了し、今後はバグ修正のみと明記している。現行版の前提はVim 8.2以上またはNeovim 0.8以上で、後継としてdpp.vimが案内されている。
-一方、この設定はVim 7.4向けにdein 1.5へ切り替えるレガシー互換処理を残している。Vim 7.4を今も対象にするかを決めるまでは、この処理を安易に削除しない。
+一方、この設定はVim 7.4ではdein 1.5、Vim 8.0〜8.1ではdein 2.2へ切り替える互換処理を持つ。2.2はVim 8.0以上を要件とし、dein 3.1のREADMEでもVim 8.2未満には2.2を使うよう案内されている。既存のdeinも起動時に確認して互換タグへ切り替える。これらの固定版はdein自身の管理対象から除外し、`:DeinUpdate`で現行HEADへ更新されないようにしている。
 
 ### 2. Unite系の遅延読み込み条件が不足している可能性
 
