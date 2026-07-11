@@ -49,8 +49,6 @@ zi ice silent pick"init.sh" depth'1'; zi load "b4b4r07/enhancd"
 zi ice depth'1'; zi light mollifier/cd-gitroot
 # 補完の動的再読み込みを行う
 zi ice depth'1'; zi light mollifier/zload
-# rmの代替として.gomiフォルダにゴミを捨てる(If fzf is already installed)
-zi ice depth'1'; zi light b4b4r07/zsh-gomi
 # 現在のパスのgitの情報を表示するプラグイン
 zi ice depth'1'; zi light yonchu/zsh-vcs-prompt
 # コマンドの-hで表示されるもので補完ファイルを生成する

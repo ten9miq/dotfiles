@@ -22,6 +22,46 @@ done < <(find $THIS_SCRIPT_PATH -type f -not -name '*.sh')
 chmod -R +x $copy_target
 ln -fs extract $copy_target/ext
 
+# gomiの最新版をGitHub Releasesからインストールする
+install_latest_gomi() {
+  local platform
+  local tarball
+  local tmp_dir
+  local staged_binary
+
+  platform="$(uname -s) $(uname -m)"
+  case "$platform" in
+    'Darwin arm64')  tarball='gomi_Darwin_arm64.tar.gz' ;;
+    'Darwin x86_64') tarball='gomi_Darwin_x86_64.tar.gz' ;;
+    'Linux aarch64' | 'Linux arm64') tarball='gomi_Linux_arm64.tar.gz' ;;
+    'Linux x86_64' | 'Linux amd64')  tarball='gomi_Linux_x86_64.tar.gz' ;;
+    *)
+      skip_print "gomi does not provide a prebuilt binary for $platform"
+      return 0
+      ;;
+  esac
+
+  has curl || { error_print 'gomi installation requires curl'; return 1; }
+  has tar || { error_print 'gomi installation requires tar'; return 1; }
+
+  tmp_dir="$(mktemp -d "${TMPDIR:-/tmp}/gomi-install.XXXXXX")" || return 1
+  staged_binary="$copy_target/.gomi.new.$$"
+
+  if ! curl -fsSL "https://github.com/babarot/gomi/releases/latest/download/$tarball" \
+      | tar -xzf - -C "$tmp_dir" || [ ! -f "$tmp_dir/gomi" ]; then
+    error_print 'failed to download or extract the latest gomi release'
+    \rm -rf "$tmp_dir"
+    return 1
+  fi
+
+  \cp "$tmp_dir/gomi" "$staged_binary" && chmod 0755 "$staged_binary" &&
+    \mv -f "$staged_binary" "$copy_target/gomi" || return 1
+  ok_print "gomi installed: $("$copy_target/gomi" --version | head -n 1)"
+  \rm -rf "$tmp_dir"
+}
+
+install_latest_gomi || exit 1
+
 if [ $fzf_extract == 1 ]; then
   tar -xf $THIS_SCRIPT_PATH/.fzf.tgz -C $copy_target
 else
