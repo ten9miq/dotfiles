@@ -21,8 +21,8 @@ git clone --depth=1 https://github.com/z-shell/zi.git ${zi_home}/bin
 | [zsh-users/zsh-completions](https://github.com/zsh-users/zsh-completions) | Zsh標準にない補完定義を追加 | `blockf` で補完ファイルを自動追加せず、後段の`compinit`と組み合わせる。shallow clone |
 | [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | 履歴等に基づく入力候補を薄い文字で表示 | shallow clone。標準設定で使用 |
 | [zsh-users/zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) | 入力済み文字列を含む履歴を検索 | Zshバージョン条件付きとして宣言。ただし条件式に注意が必要 |
-| [zdharma/fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting) | 入力中のコマンドを構文強調 | `.zshrc` でパス色をカスタマイズ。旧所有者名から現行組織へ転送される |
-| [b4b4r07/enhancd](https://github.com/babarot/enhancd) | fzf等を使って`cd`を履歴・候補選択対応に拡張 | `init.sh`を明示して通常ロード。旧ユーザー名から現行名へ転送される |
+| [zdharma-continuum/fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting) | 入力中のコマンドを構文強調 | `.zshrc` でパス色をカスタマイズ。現行の組織名で取得 |
+| [babarot/enhancd](https://github.com/babarot/enhancd) | fzf等を使って`cd`を履歴・候補選択対応に拡張 | `init.sh`を明示して通常ロード。現行のユーザー名で取得 |
 | [mollifier/cd-gitroot](https://github.com/mollifier/cd-gitroot) | Gitリポジトリのルートへ移動 | 共通alias `cdu='cd-gitroot'` から利用 |
 | [mollifier/zload](https://github.com/mollifier/zload) | 関数・補完ファイルをautoload形式で再読込 | `gcomp`、`gcomp_all` が生成した補完を `zload` する |
 | [yonchu/zsh-vcs-prompt](https://github.com/yonchu/zsh-vcs-prompt) | Git/SVN/Hg情報をプロンプトへ表示 | `.zshrc` の `RPROMPT='$(vcs_super_info)'` と多数の表示変数が直接依存 |
@@ -80,15 +80,15 @@ fzfは複数の場所から利用される。
 
 `bin/init.sh` はcurlでlatestアーカイブを取得し、展開に成功したバイナリを一時ファイル経由で `$HOME/bin/gomi` へ置き換える。処理を単純に保つためwgetフォールバックと事前のバージョン比較は行わず、セットアップのたびにlatestを取得する。公式latestアーカイブにはこの導入経路で利用できるチェックサムがないため、HTTPS取得とアーカイブ展開結果を確認し、配置後にバージョンを表示する。
 
-### 2. 旧所有者名への依存
+### 2. 旧所有者名への依存は解消済み
 
-次の宣言は現在GitHubの転送で動いている。
+2026-07-11に、GitHubの転送へ依存していた宣言を現行の所有者名へ更新した。
 
-- `zdharma/fast-syntax-highlighting` → `zdharma-continuum/fast-syntax-highlighting`
-- `b4b4r07/enhancd` → `babarot/enhancd`
-- `b4b4r07/zsh-gomi` → `babarot/zsh-gomi`（設定から削除済み）
+- `zdharma/fast-syntax-highlighting`から`zdharma-continuum/fast-syntax-highlighting`へ更新
+- `b4b4r07/enhancd`から`babarot/enhancd`へ更新
+- `b4b4r07/zsh-gomi`は現行Go版gomiへの移行に伴い設定から削除
 
-新しい環境での再現性を上げるには現行名へ更新する。ただしZiの保存ディレクトリ名が変化し、旧コピーが残る可能性があるため、更新時は `zi delete`、`zi update` 等の挙動を確認する。
+既存環境ではZiの保存ディレクトリ名が変化するため、旧所有者名で取得済みのコピーが `$HOME/.zi/plugins/` 以下に残る可能性がある。新しい宣言の導入を確認後、必要に応じてZiの削除機能で旧コピーを整理する。dotfilesのセットアップから実ホーム内の旧コピーを自動削除はしない。
 
 ### 3. history-substring-searchの条件式
 

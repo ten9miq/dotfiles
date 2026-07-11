@@ -42,9 +42,9 @@ zi ice depth'1'; zi light zsh-users/zsh-autosuggestions
 # コマンド入力中に上キーや下キーを押した際の履歴の検索を使いやすくする
 zi ice if"[[ __zsh_version > 4.3 ]]"; zi light zsh-users/zsh-history-substring-search
 # コマンドのシンタックスハイライト
-zi ice depth'1'; zi light zdharma/fast-syntax-highlighting
+zi ice depth'1'; zi light zdharma-continuum/fast-syntax-highlighting
 # cdコマンドをfzfなどと組み合わせ便利にする
-zi ice silent pick"init.sh" depth'1'; zi load "b4b4r07/enhancd"
+zi ice silent pick"init.sh" depth'1'; zi load "babarot/enhancd"
 # gitリポジトリ内に居る時にリポジトリのルートに移動する
 zi ice depth'1'; zi light mollifier/cd-gitroot
 # 補完の動的再読み込みを行う
