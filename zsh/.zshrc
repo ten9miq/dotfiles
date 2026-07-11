@@ -54,8 +54,6 @@ zi ice depth'1'; zi light yonchu/zsh-vcs-prompt
 # コマンドの-hで表示されるもので補完ファイルを生成する
 export GENCOMPL_FPATH=$HOME/.zsh/complete
 # zi ice has'python'; zi light RobSis/zsh-completion-generator
-# kコマンドでlsより見やすい表示をおこなう
-zi ice depth'1'; zi light supercrabtree/k
 # fzfの補完とキーバインドを追加
 zi ice multisrc"shell/{completion,key-bindings}.zsh" \
   id-as"junegunn/fzf_completions" pick"/dev/null" depth'1';

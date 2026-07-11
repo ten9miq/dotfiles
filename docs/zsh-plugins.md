@@ -4,7 +4,7 @@
 
 ## 概要
 
-このリポジトリは [z-shell/zi](https://github.com/z-shell/zi) をプラグインマネージャーとして使用し、`zsh/.zshrc` から10件のプラグインを読み込む。以前使用していたzsh-gomiは、現行のGo版gomiへ移行した。
+このリポジトリは [z-shell/zi](https://github.com/z-shell/zi) をプラグインマネージャーとして使用し、`zsh/.zshrc` から9件のプラグインを読み込む。以前使用していたzsh-gomiは現行のGo版gomiへ移行し、未使用だった`supercrabtree/k`は削除した。
 
 初回起動時に `$HOME/.zi/bin/zi.zsh` がなければ、次の処理でZi本体を取得する。
 
@@ -26,7 +26,6 @@ git clone --depth=1 https://github.com/z-shell/zi.git ${zi_home}/bin
 | [mollifier/cd-gitroot](https://github.com/mollifier/cd-gitroot) | Gitリポジトリのルートへ移動 | 共通alias `cdu='cd-gitroot'` から利用 |
 | [mollifier/zload](https://github.com/mollifier/zload) | 関数・補完ファイルをautoload形式で再読込 | `gcomp`、`gcomp_all` が生成した補完を `zload` する |
 | [yonchu/zsh-vcs-prompt](https://github.com/yonchu/zsh-vcs-prompt) | Git/SVN/Hg情報をプロンプトへ表示 | `.zshrc` の `RPROMPT='$(vcs_super_info)'` と多数の表示変数が直接依存 |
-| [supercrabtree/k](https://github.com/supercrabtree/k) | 色・Git状態付きのディレクトリ一覧 | `k`コマンドを追加。GNU系`ls`機能への依存に注意 |
 | [junegunn/fzf](https://github.com/junegunn/fzf) | fzfのZsh補完とキーバインド | `shell/completion.zsh` と `shell/key-bindings.zsh` だけを読み込み、プラグイン本体は読み込まない設定 |
 
 ## コメントアウトされているプラグイン
@@ -110,7 +109,7 @@ zi ice if"[[ __zsh_version > 4.3 ]]"
 
 ZiのTurboモード用 `wait` や `lucid` は使われていない。`zshtime` 関数とコメントアウトされた`zprof`は用意されているため、起動速度を改善する場合は、まず5回の起動時間と`zprof`を測定する。
 
-補完、autosuggestions、syntax highlighting、プロンプトは対話開始時に必要だが、`k`、`cd-gitroot`、`zload`などコマンド起点の機能は遅延読み込み候補になり得る。
+補完、autosuggestions、syntax highlighting、プロンプトは対話開始時に必要だが、`cd-gitroot`、`zload`などコマンド起点の機能は遅延読み込み候補になり得る。
 
 ### 6. fzfの取得が重複する
 
@@ -122,7 +121,6 @@ Ziはfzfリポジトリをシェル統合用にcloneし、`bin/init.sh` もfzf�
 
 | 優先度 | 候補 | 判断基準 |
 |---|---|---|
-| 中 | `supercrabtree/k` | `k`コマンドを使わず、通常の`ls`で足りるなら削除 |
 | 中 | `mollifier/cd-gitroot` | 共通alias `cdu`を使わない、または `git rev-parse --show-toplevel` 等で代替するなら削除 |
 | 中 | `mollifier/zload` | `gcomp`/`gcomp_all`を使っていないなら、無効化された補完生成機能とともに削除可能 |
 | 低 | `b4b4r07/enhancd` | 拡張`cd`を使わず、標準`cd`や別のディレクトリ移動ツールで十分なら削除 |
@@ -137,7 +135,7 @@ Ziはfzfリポジトリをシェル統合用にcloneし、`bin/init.sh` もfzf�
 - 起動時間: `.zshrc` の `zshtime`、または `time zsh -ic exit`
 - 詳細プロファイル: `.zshrc` 冒頭と末尾で `zmodload zsh/zprof`、`zprof`
 - 構文確認: `zsh -n zsh/.zshrc`
-- コマンド確認: `type cd-gitroot zload gomi k vcs_super_info fzf`
+- コマンド確認: `type cd-gitroot zload gomi vcs_super_info fzf`
 
 初回取得や更新は上流コードを実行するため、一時ホームまたは検証用ユーザーで確認する。実ホームの `$HOME/.zi` を調査目的で削除しない。
 
