@@ -1,4 +1,3 @@
-let g:vimproc#download_windows_dll = 1 " vimprcにwindowsで利用するためのdllをDLする設定を入れておく
 " プラグインが実際にインストールされるディレクトリ
 let s:dein_dir = expand('~/.vim/dein')
 
