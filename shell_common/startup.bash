@@ -4,12 +4,18 @@
 # https://www8281uo.sakura.ne.jp/blog/?p=617
 #---------------------------------------------------------------
 SSH_DIR="$HOME/.ssh/"
-if [ -d $SSH_DIR ];then
+if [ -d "$SSH_DIR" ];then
   # SSHで接続していないならssh-agent実行処理を行う
   if [ -z "$SSH_CONNECTION" ]; then
     # 秘密鍵が1つ以上あるかチェック
-    FIND_KEY="find $SSH_DIR -name 'id_rsa*' -or -name '*.ppk' -name '*.pem' -not -name '*.pub'"
-    if [ $(eval $FIND_KEY | wc -l) -gt 0 ];then
+    SSH_KEYS=()
+    while IFS= read -r -d '' KEY; do
+      SSH_KEYS+=("$KEY")
+    done < <(find "$SSH_DIR" -type f \
+      \( -name 'id_rsa*' -o -name '*.ppk' -o -name '*.pem' \) \
+      ! -name '*.pub' -print0)
+
+    if [ "${#SSH_KEYS[@]}" -gt 0 ];then
       SSH_AGENT_FILE=$HOME/.ssh-agent
       [ -f $SSH_AGENT_FILE ] && source $SSH_AGENT_FILE
       ssh-add -l > /dev/null
@@ -17,14 +23,15 @@ if [ -d $SSH_DIR ];then
         # >| を使うことでsetopt no_clobberでも上書きできる
         ssh-agent >| $SSH_AGENT_FILE
         source $SSH_AGENT_FILE
-        for KEY in $(eval $FIND_KEY)
+        for KEY in "${SSH_KEYS[@]}"
         do
-          ssh-add $KEY
+          ssh-add "$KEY"
         done
       fi
     fi
     unset SSH_AGENT_FILE
     unset KEY
+    unset SSH_KEYS
   else
     SSH_AGENT_LINK=$HOME/.ssh/agent
     if [ -S $SSH_AUTH_SOCK ]; then
