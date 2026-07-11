@@ -75,15 +75,16 @@ git pull origin ${branch_name}
 
 ```sshconfig
 ForwardAgent yes
-HostKeyAlgorithms +ssh-dss
 ```
 
-`ForwardAgent yes`がグローバルに設定されているため、接続先ホストが侵害された場合に転送中のエージェントが悪用される範囲が広い。`ssh-dss`も古く弱いアルゴリズムであり、全接続へ追加する必要はない。
+`ForwardAgent yes`がグローバルに設定されているため、接続先ホストが侵害された場合に転送中のエージェントが悪用される範囲が広い。`ssh-dss`も古く弱いアルゴリズムであり、以前は全接続へ追加されていた。
+
+2026-07-11に、`HostKeyAlgorithms +ssh-dss`をコメントアウトした。設定行は旧サーバー向けの参考として残し、必要な場合だけ対象の`Host`ブロック内で有効化する運用へ変更した。
 
 推奨対応:
 
 - デフォルトを`ForwardAgent no`にし、本当に必要な信頼済みHostだけ`yes`にする。
-- `HostKeyAlgorithms +ssh-dss`を全体設定から削除し、どうしても必要な旧機器だけHostブロックへ限定する。
+- どうしても必要な旧機器だけ、そのHostブロック内で`HostKeyAlgorithms +ssh-dss`を有効化する。
 - `PermitLocalCommand`とControlMasterも必要なHost範囲へ限定することを検討する。
 
 ### 4. WSL判定関数がCygwinを判定している
