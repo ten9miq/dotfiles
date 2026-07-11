@@ -4,7 +4,7 @@
 
 ## 概要
 
-このリポジトリは [z-shell/zi](https://github.com/z-shell/zi) をプラグインマネージャーとして使用し、`zsh/.zshrc` から9件のプラグインを読み込む。以前使用していたzsh-gomiは現行のGo版gomiへ移行し、未使用だった`supercrabtree/k`は削除した。
+このリポジトリは [z-shell/zi](https://github.com/z-shell/zi) をプラグインマネージャーとして使用し、`zsh/.zshrc` から8件のプラグインを読み込む。以前使用していたzsh-gomiは現行のGo版gomiへ移行し、`supercrabtree/k`と`mollifier/cd-gitroot`は削除した。
 
 初回起動時に `$HOME/.zi/bin/zi.zsh` がなければ、次の処理でZi本体を取得する。
 
@@ -23,7 +23,6 @@ git clone --depth=1 https://github.com/z-shell/zi.git ${zi_home}/bin
 | [zsh-users/zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) | 入力済み文字列を含む履歴を検索 | Zshバージョン条件付きとして宣言。ただし条件式に注意が必要 |
 | [zdharma-continuum/fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting) | 入力中のコマンドを構文強調 | `.zshrc` でパス色をカスタマイズ。現行の組織名で取得 |
 | [babarot/enhancd](https://github.com/babarot/enhancd) | fzf等を使って`cd`を履歴・候補選択対応に拡張 | `init.sh`を明示して通常ロード。現行のユーザー名で取得 |
-| [mollifier/cd-gitroot](https://github.com/mollifier/cd-gitroot) | Gitリポジトリのルートへ移動 | 共通alias `cdu='cd-gitroot'` から利用 |
 | [mollifier/zload](https://github.com/mollifier/zload) | 関数・補完ファイルをautoload形式で再読込 | `gcomp`、`gcomp_all` が生成した補完を `zload` する |
 | [yonchu/zsh-vcs-prompt](https://github.com/yonchu/zsh-vcs-prompt) | Git/SVN/Hg情報をプロンプトへ表示 | `.zshrc` の `RPROMPT='$(vcs_super_info)'` と多数の表示変数が直接依存 |
 | [junegunn/fzf](https://github.com/junegunn/fzf) | fzfのZsh補完とキーバインド | `shell/completion.zsh` と `shell/key-bindings.zsh` だけを読み込み、プラグイン本体は読み込まない設定 |
@@ -109,7 +108,7 @@ zi ice if"[[ __zsh_version > 4.3 ]]"
 
 ZiのTurboモード用 `wait` や `lucid` は使われていない。`zshtime` 関数とコメントアウトされた`zprof`は用意されているため、起動速度を改善する場合は、まず5回の起動時間と`zprof`を測定する。
 
-補完、autosuggestions、syntax highlighting、プロンプトは対話開始時に必要だが、`cd-gitroot`、`zload`などコマンド起点の機能は遅延読み込み候補になり得る。
+補完、autosuggestions、syntax highlighting、プロンプトは対話開始時に必要だが、`zload`などコマンド起点の機能は遅延読み込み候補になり得る。
 
 ### 6. fzfの取得が重複する
 
@@ -121,11 +120,21 @@ Ziはfzfリポジトリをシェル統合用にcloneし、`bin/init.sh` もfzf�
 
 | 優先度 | 候補 | 判断基準 |
 |---|---|---|
-| 中 | `mollifier/cd-gitroot` | 共通alias `cdu`を使わない、または `git rev-parse --show-toplevel` 等で代替するなら削除 |
 | 中 | `mollifier/zload` | `gcomp`/`gcomp_all`を使っていないなら、無効化された補完生成機能とともに削除可能 |
 | 低 | `b4b4r07/enhancd` | 拡張`cd`を使わず、標準`cd`や別のディレクトリ移動ツールで十分なら削除 |
 
 `zsh-completions`、`zsh-autosuggestions`、`zsh-history-substring-search`、`fast-syntax-highlighting`、`zsh-vcs-prompt`、fzf統合は、対話操作や現在の明示設定へ直接影響するため、現状維持を推奨する。
+
+### cd-gitrootから共有関数への移行
+
+`mollifier/cd-gitroot` と `alias cdu='cd-gitroot'` は2026-07-11に削除した。代わりに `shell_common/functions.bash` へ `cdu` 関数を実装し、BashとZshの両方から利用できるようにした。
+
+- `cdu`: 現在のGitリポジトリのルートへ移動
+- `cdu path/to/dir`: Gitルートからの相対パスへ移動
+- Gitリポジトリ外ではエラーを表示して終了ステータス1を返す
+- 2個以上の引数は使用方法エラーとして終了ステータス2を返す
+
+ルート取得には `git rev-parse --show-toplevel` を使用し、空白を含むパスも引用して処理する。
 
 ## 更新・確認方法
 
@@ -135,7 +144,7 @@ Ziはfzfリポジトリをシェル統合用にcloneし、`bin/init.sh` もfzf�
 - 起動時間: `.zshrc` の `zshtime`、または `time zsh -ic exit`
 - 詳細プロファイル: `.zshrc` 冒頭と末尾で `zmodload zsh/zprof`、`zprof`
 - 構文確認: `zsh -n zsh/.zshrc`
-- コマンド確認: `type cd-gitroot zload gomi vcs_super_info fzf`
+- コマンド確認: `type cdu zload gomi vcs_super_info fzf`
 
 初回取得や更新は上流コードを実行するため、一時ホームまたは検証用ユーザーで確認する。実ホームの `$HOME/.zi` を調査目的で削除しない。
 
@@ -146,7 +155,6 @@ Ziはfzfリポジトリをシェル統合用にcloneし、`bin/init.sh` もfzf�
 - [enhancd](https://github.com/babarot/enhancd): 現在の管理先、fzf等への依存、`cd`の置換動作
 - [zsh-gomi](https://github.com/babarot/zsh-gomi): アーカイブ状態、fzf依存
 - [gomi](https://github.com/babarot/gomi): 作者が現在開発する後継CLI
-- [cd-gitroot](https://github.com/mollifier/cd-gitroot): コマンドと利用方法
 - [zload](https://github.com/mollifier/zload): 補完・関数のautoload機能
 - [zsh-completions](https://github.com/zsh-users/zsh-completions): 追加補完
 - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions): 入力候補表示

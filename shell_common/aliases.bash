@@ -26,7 +26,6 @@ alias svi='sudo_vim'
 alias hsg='history | grep'
 alias g='git'
 alias sg="sudo_git"
-alias cdu='cd-gitroot' # zshのcd-gitrootのalias
 alias du_sort='du -h --max-depth=1 | sort -hr' # コマンドを実行した場所のディレクトリをサイズの大きい順に表示する
 alias rsync='rsync -ah --no-i-r --info=progress2'
 # rsyncで再開可能なファイル転送 https://manpages.org/rsync

@@ -45,8 +45,6 @@ zi ice if"[[ __zsh_version > 4.3 ]]"; zi light zsh-users/zsh-history-substring-s
 zi ice depth'1'; zi light zdharma-continuum/fast-syntax-highlighting
 # cdコマンドをfzfなどと組み合わせ便利にする
 zi ice silent pick"init.sh" depth'1'; zi load "babarot/enhancd"
-# gitリポジトリ内に居る時にリポジトリのルートに移動する
-zi ice depth'1'; zi light mollifier/cd-gitroot
 # 補完の動的再読み込みを行う
 zi ice depth'1'; zi light mollifier/zload
 # 現在のパスのgitの情報を表示するプラグイン
