@@ -12,7 +12,7 @@ if [ ! -e "${HOME}/.gitconfig.local" ]; then
 
     cat <<EOF > "${HOME}/.gitconfig.local"
 [user]
-    name = 53JIlLenWe11
+    name = ten9miq
     email = ruin.of.messger@gmail.com
 EOF
 
