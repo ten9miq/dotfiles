@@ -80,8 +80,6 @@ repo = 'aykamko/vim-easymotion-segments'
 # Color
 [[plugins]]
 repo = 'tomasr/molokai'
-[[plugins]]
-repo = 'sickill/vim-monokai'
 
 # Nginxのconfファイルをハイライトする
 [[plugins]]
