@@ -24,33 +24,39 @@ complete -cf sudo # sudo入力中にコマンド補完ができるようにす�
 stty stop undef # Ctrl+sでLinuxのターミナルへの出力をロックする機能があるのでそれを無効化する(一応Ctrl+qで抜けれる)
 
 # [Prompt]
-BLACK='\[\e[30;40m\]'
-RED='\[\e[31;40m\]'
-GREEN='\[\e[32;40m\]'
-YELLOW='\[\e[33;40m\]'
-BLUE='\[\e[34;40m\]'
-PURPLE='\[\e[35;40m\]'
-CYAN='\[\e[36;40m\]'
-LIGHT_GLAY='\[\e[37;40m\]'
-DARK_GLAY='\[\e[90;40m\]'
-LIGHT_RED='\[\e[91;40m\]'
-LIGHT_GREEN='\[\e[92;40m\]'
-LIGHT_YELLOW='\[\e[93;40m\]'
-LIGHT_BLUE='\[\e[94;40m\]'
-LIGHT_PURPLE='\[\e[95;40m\]'
-LIGHT_CYAN='\[\e[96;40m\]'
-WHITE='\[\e[97;40m\]'
+BLACK='\[\e[30m\]'
+RED='\[\e[31m\]'
+GREEN='\[\e[32m\]'
+YELLOW='\[\e[33m\]'
+BLUE='\[\e[34m\]'
+PURPLE='\[\e[35m\]'
+CYAN='\[\e[36m\]'
+LIGHT_GLAY='\[\e[37m\]'
+DARK_GLAY='\[\e[90m\]'
+LIGHT_RED='\[\e[91m\]'
+LIGHT_GREEN='\[\e[92m\]'
+LIGHT_YELLOW='\[\e[93m\]'
+LIGHT_BLUE='\[\e[94m\]'
+LIGHT_PURPLE='\[\e[95m\]'
+LIGHT_CYAN='\[\e[96m\]'
+WHITE='\[\e[97m\]'
 RESET='\[\e[0m\]'
 
-# 引数に256色のXterm Numberを与えることでその色になります
-EXT_COLOR () { echo -ne "\[\033[38;5;$1m\]"; }
+# 引数にANSI 256色の番号を与え、前景色のエスケープシーケンスを生成する
+ANSI_256_FG () { echo -ne "\[\033[38;5;$1m\]"; }
+
+C256_MAGENTA=$(ANSI_256_FG 170)
+C256_BLUE=$(ANSI_256_FG 27)
+C256_LIGHT_BLUE=$(ANSI_256_FG 39)
+C256_PURPLE=$(ANSI_256_FG 99)
+C256_GRAY=$(ANSI_256_FG 245)
 
 [ -f ~/.config/shell_common/prompt.bash ] && source ~/.config/shell_common/prompt.bash
 
 # Based Bash Profile Generator
 # http://xta.github.io/HalloweenBash/
 # 16color
-export PS1="$PURPLE\u$LIGHT_BLUE@$GREEN`hostname_headCutOut` `EXT_COLOR 39`$(eval 'echo ${MYPSDIR}')$LIGHT_GLAY\$(__git_ps1 ' (%s)') "$'\n'"`EXT_COLOR 99`[${SHLVL}]$DARK_GLAY[\D{%y/%m/%d} \t]$RESET $LIGHT_BLUE\$ $RESET"
+export PS1="$C256_MAGENTA\u$C256_BLUE@$GREEN`hostname_headCutOut` $C256_LIGHT_BLUE$(eval 'echo ${MYPSDIR}')$LIGHT_GLAY\$(__git_ps1 ' (%s)') "$'\n'"$C256_PURPLE[${SHLVL}]$C256_GRAY[\D{%y/%m/%d} \t]$RESET $LIGHT_BLUE\$ $RESET"
 
 
 # cd省略してのディレクトリ移動を行う
