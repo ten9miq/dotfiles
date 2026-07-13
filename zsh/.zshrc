@@ -473,3 +473,8 @@ bindkey " " globalias
 if (type zprof &> /dev/null) ;then
   zprof | less
 fi
+
+# setup.sh による .zshrc の上書き対象外に置くローカル設定。
+# .shellrc.local は Bash/Zsh 共通、.zshrc.local は Zsh 固有の設定に使用する。
+[[ -r "$HOME/.shellrc.local" ]] && . "$HOME/.shellrc.local"
+[[ -r "$HOME/.zshrc.local" ]] && . "$HOME/.zshrc.local"

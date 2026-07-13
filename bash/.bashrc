@@ -133,3 +133,8 @@ fi
 bind '"\C-j": backward-word'
 bind '"\C-g": forward-word'
 source "$HOME/.bash/.fzf/shell/key-bindings.bash"
+
+# setup.sh による .bashrc の上書き対象外に置くローカル設定。
+# .shellrc.local は Bash/Zsh 共通、.bashrc.local は Bash 固有の設定に使用する。
+[ -r "$HOME/.shellrc.local" ] && . "$HOME/.shellrc.local"
+[ -r "$HOME/.bashrc.local" ] && . "$HOME/.bashrc.local"
