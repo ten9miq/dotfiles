@@ -56,7 +56,7 @@ C256_GRAY=$(ANSI_256_FG 245)
 # Based Bash Profile Generator
 # http://xta.github.io/HalloweenBash/
 # 16color
-export PS1="$C256_MAGENTA\u$C256_BLUE@$GREEN`hostname_headCutOut` $C256_LIGHT_BLUE$(eval 'echo ${MYPSDIR}')$LIGHT_GLAY\$(__git_ps1 ' (%s)') "$'\n'"$C256_PURPLE[${SHLVL}]$C256_GRAY[\D{%y/%m/%d} \t]$RESET $LIGHT_BLUE\$ $RESET"
+export PS1="$C256_MAGENTA\u$C256_BLUE@$GREEN`hostname_headCutOut` $C256_LIGHT_BLUE$(eval 'echo ${MYPSDIR}')$LIGHT_GLAY\$(declare -F __git_ps1 >/dev/null && __git_ps1 ' (%s)') "$'\n'"$C256_PURPLE[${SHLVL}]$C256_GRAY[\D{%y/%m/%d} \t]$RESET $LIGHT_BLUE\$ $RESET"
 
 
 # cd省略してのディレクトリ移動を行う
