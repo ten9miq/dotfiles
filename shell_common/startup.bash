@@ -63,12 +63,13 @@ unset SSH_DIR
 
 #---------------------------------------------------------------
 # VTEベースのGUIターミナル、SSH、またはWSLでtmuxを自動起動する。
-# VS Code統合ターミナルでは起動しない。
+# 明示的な無効化指定と VS Code の標準識別子は除外する。
 #---------------------------------------------------------------
-if [[ $- == *i* && -z ${TMUX:-} && ${TERM_PROGRAM:-} != vscode ]] &&
-  { [[ -n ${VTE_VERSION:-} || -n ${SSH_CONNECTION:-} || -n ${WSL_DISTRO_NAME:-} || -n ${WSL_INTEROP:-} ]] ||
-     [[ $(uname -r) == *[Mm]icrosoft* ]]; } &&
-  type tmux >/dev/null 2>&1; then
+if [[ $- == *i* && -z ${TMUX:-} && -z ${DOTFILES_NO_TMUX:-} &&
+    ${TERM_PROGRAM:-} != vscode ]] &&
+    { [[ -n ${VTE_VERSION:-} || -n ${SSH_CONNECTION:-} || -n ${WSL_DISTRO_NAME:-} ]] ||
+    [[ $(uname -r) == *[Mm]icrosoft* ]]; } &&
+    type tmux >/dev/null 2>&1; then
   tmux attach || tmux new-session
 fi
 
