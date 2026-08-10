@@ -62,10 +62,13 @@ unset SSH_DIR
 # fi
 
 #---------------------------------------------------------------
-# VTEベースのGUIターミナルまたはSSH接続でtmuxを自動で開く。
-# CopilotやVS Code統合ターミナルはVTE_VERSIONを持たないため除外する。
+# VTEベースのGUIターミナル、SSH、またはWSLでtmuxを自動起動する。
+# VS Code統合ターミナルでは起動しない。
 #---------------------------------------------------------------
-if [[ -z ${TMUX:-} && ( -n ${VTE_VERSION:-} || -n ${SSH_CONNECTION:-} ) ]] && type tmux >/dev/null 2>&1; then
+if [[ $- == *i* && -z ${TMUX:-} && ${TERM_PROGRAM:-} != vscode ]] &&
+  { [[ -n ${VTE_VERSION:-} || -n ${SSH_CONNECTION:-} || -n ${WSL_DISTRO_NAME:-} || -n ${WSL_INTEROP:-} ]] ||
+     [[ $(uname -r) == *[Mm]icrosoft* ]]; } &&
+  type tmux >/dev/null 2>&1; then
   tmux attach || tmux new-session
 fi
 
