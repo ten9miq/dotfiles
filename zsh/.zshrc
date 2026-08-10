@@ -255,7 +255,7 @@ fi
 
 # kubectlの補完読み込み
 if (type kubectl &> /dev/null) ;then
-  source <(kubectl completion bash)
+  source <(kubectl completion zsh)
 fi
 
 # 単語の入力途中でもTab補完を有効化

@@ -52,6 +52,18 @@ unset SSH_DIR
 #---------------------------------------------------------------
 # SSHログイン時にtmuxを自動で開くようにする
 #---------------------------------------------------------------
+# if type tmux >/dev/null 2>&1; then
+#   #if not inside a tmux session, and if no session is started, start a new session
+#   if test -z "$TMUX"; then
+#     if ! $(tmux attach); then
+#       tmux new-session
+#     fi
+#   fi
+# fi
+
+#---------------------------------------------------------------
+# SSHログイン時にtmuxを自動で開くようにする
+#---------------------------------------------------------------
 if type tmux >/dev/null 2>&1; then
   #if not inside a tmux session, and if no session is started, start a new session
   if test -z "$TMUX"; then

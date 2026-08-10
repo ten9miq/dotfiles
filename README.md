@@ -6,7 +6,7 @@ Bash、Zsh、Fish、Vim、tmux、SSH、Git などの設定を管理し、ホー�
 
 ## セットアップ
 
-> [!WARNING]
+> \[!WARNING]
 > `setup.sh` は実行したユーザーの `$HOME` にある設定ファイルを変更します。既存の設定と外部取得処理を確認してから実行してください。
 
 必要なコマンドは Bash、Git、および一般的な Unix コマンドです。`bin/init.sh` は `fzf` と `gomi` を取得するため、GitHub へ接続できることに加えて `curl` と `tar` も必要です。
@@ -23,19 +23,19 @@ bash setup.sh
 
 ## 配置される設定
 
-| ディレクトリ | 主な配置先・内容 |
-| --- | --- |
-| `bash/` | `~/.bashrc`、`~/.bash_profile`、補完設定 |
-| `zsh/` | `~/.zshrc`、`~/.zprofile`、補完設定 |
-| `fish/` | `~/.config/fish/` |
+| ディレクトリ    | 主な配置先・内容                                       |
+| --------------- | ------------------------------------------------------ |
+| `bash/`         | `~/.bashrc`、`~/.bash_profile`、補完設定               |
+| `zsh/`          | `~/.zshrc`、`~/.zprofile`、補完設定                    |
+| `fish/`         | `~/.config/fish/`                                      |
 | `shell_common/` | `~/.config/shell_common/` に配置する Bash/Zsh 共通設定 |
-| `vim/` | `~/.vimrc`、`~/.gvimrc`、`~/.vim/` |
-| `tmux/` | Linux/WSL 向けの `~/.tmux.conf` と関連設定 |
-| `ssh/` | Linux/WSL 向けの `~/.ssh/config` |
-| `git/` | `~/.gitconfig` とローカル設定用 `~/.gitconfig.local` |
-| `bin/` | `~/bin/` の補助コマンド、`fzf`、`gomi` |
-| `etc/` | `~/.inputrc`、`~/.toprc` など |
-| `windows/` | Windows 用のレジストリ設定（`setup.sh` の対象外） |
+| `vim/`          | `~/.vimrc`、`~/.gvimrc`、`~/.vim/`                     |
+| `tmux/`         | Linux/WSL 向けの `~/.tmux.conf` と関連設定             |
+| `ssh/`          | Linux/WSL 向けの `~/.ssh/config`                       |
+| `git/`          | `~/.gitconfig` とローカル設定用 `~/.gitconfig.local`   |
+| `bin/`          | `~/bin/` の補助コマンド、`fzf`、`gomi`                 |
+| `etc/`          | `~/.inputrc`、`~/.toprc` など                          |
+| `windows/`      | Windows 用のレジストリ設定（`setup.sh` の対象外）      |
 
 Zsh のプラグインは初回起動時、Vim のプラグインは初回利用時に追加の外部取得が発生する場合があります。
 
@@ -43,21 +43,24 @@ Zsh のプラグインは初回起動時、Vim のプラグインは初回利用
 
 端末固有のパス、環境変数、秘密情報は追跡対象の設定ファイルへ直接追加せず、次のローカルファイルへ分離します。
 
-| ファイル | 用途 |
-| --- | --- |
-| `~/.shellrc.local` | Bash と Zsh の共通設定 |
-| `~/.bashrc.local` | Bash 固有の設定 |
-| `~/.zshrc.local` | Zsh 固有の設定 |
+| ファイル             | 用途                         |
+| -------------------- | ---------------------------- |
+| `~/.shellrc.local`   | Bash と Zsh の共通設定       |
+| `~/.bashrc.local`    | Bash 固有の設定              |
+| `~/.zshrc.local`     | Zsh 固有の設定               |
 | `~/.gitconfig.local` | Git のユーザー情報と認証方式 |
 
 詳しくは [ローカルのシェル設定](docs/local-shell-settings.md) を参照してください。秘密情報を置くファイルは、所有者以外から読めない権限にしてください。
 
 ## ドキュメント
 
-- [Vim プラグイン構成](docs/vim-plugins.md)
-- [Zsh プラグイン構成](docs/zsh-plugins.md)
-- [リポジトリ構成・設定監査](docs/repository-audit.md)
-- [AI 開発ガイド](docs/ai-development-guide.md)
+* [Vim プラグイン構成](docs/vim-plugins.md)
+
+* [Zsh プラグイン構成](docs/zsh-plugins.md)
+
+* [リポジトリ構成・設定監査](docs/repository-audit.md)
+
+* [AI 開発ガイド](docs/ai-development-guide.md)
 
 ## 変更時の確認
 
@@ -68,4 +71,4 @@ bash -n path/to/file.sh
 shellcheck path/to/file.sh
 ```
 
-配置処理の確認に実際のホームディレクトリは使わず、一時ディレクトリを `HOME` に指定した隔離環境で検証してください。
+配置処理の確認に実際のホームディレクトリは使わず、一時ディレクトリを `$HOME` に指定した隔離環境で検証してください。
