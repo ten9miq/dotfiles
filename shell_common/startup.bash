@@ -62,15 +62,11 @@ unset SSH_DIR
 # fi
 
 #---------------------------------------------------------------
-# SSHログイン時にtmuxを自動で開くようにする
+# VTEベースのGUIターミナルまたはSSH接続でtmuxを自動で開く。
+# CopilotやVS Code統合ターミナルはVTE_VERSIONを持たないため除外する。
 #---------------------------------------------------------------
-if type tmux >/dev/null 2>&1; then
-  #if not inside a tmux session, and if no session is started, start a new session
-  if test -z "$TMUX"; then
-    if ! $(tmux attach); then
-      tmux new-session
-    fi
-  fi
+if [[ -z ${TMUX:-} && ( -n ${VTE_VERSION:-} || -n ${SSH_CONNECTION:-} ) ]] && type tmux >/dev/null 2>&1; then
+  tmux attach || tmux new-session
 fi
 
 #---------------------------------------------------------------
