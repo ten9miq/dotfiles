@@ -50,30 +50,6 @@ fi
 unset SSH_DIR
 
 #---------------------------------------------------------------
-# SSHログイン時にtmuxを自動で開くようにする
-#---------------------------------------------------------------
-# if type tmux >/dev/null 2>&1; then
-#   #if not inside a tmux session, and if no session is started, start a new session
-#   if test -z "$TMUX"; then
-#     if ! $(tmux attach); then
-#       tmux new-session
-#     fi
-#   fi
-# fi
-
-#---------------------------------------------------------------
-# VTEベースのGUIターミナル、SSH、またはWSLでtmuxを自動起動する。
-# 明示的な無効化指定と VS Code の標準識別子は除外する。
-#---------------------------------------------------------------
-if [[ $- == *i* && -z ${TMUX:-} && -z ${DOTFILES_NO_TMUX:-} &&
-    ${TERM_PROGRAM:-} != vscode ]] &&
-    { [[ -n ${VTE_VERSION:-} || -n ${SSH_CONNECTION:-} || -n ${WSL_DISTRO_NAME:-} ]] ||
-    [[ $(uname -r) == *[Mm]icrosoft* ]]; } &&
-    type tmux >/dev/null 2>&1; then
-  tmux attach || tmux new-session
-fi
-
-#---------------------------------------------------------------
 # tmuxのhostごとにstatus lineの色を変える
 #---------------------------------------------------------------
 if ! [ "$TMUX" = "" ]; then

@@ -151,16 +151,29 @@ fda() {
     dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
 }
 #---------------------------------------------------------------
-# tm - create new tmux session, or switch to existing one. Works from within tmux too. (@bag-man)
-# `tm` will allow you to select your tmux session via fzf.
-# `tm irc` will attach to the irc session (if it exists), else it will create it.
+# tm: 既存セッションへ接続し、なければ新規作成する（fzf不要）。
+# tm 作業名: 名前付きセッションを作成・接続する。tmux内では切り替える。
+# tmux内で引数なしの場合は何もしない。
 #---------------------------------------------------------------
 tm() {
-  [[ -n "$TMUX"  ]] && change="switch-client" || change="attach-session"
-    if [ $1  ]; then
-      tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); return
-        fi
-        session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
+  if [ "$#" -gt 1 ] || { [ "$#" -eq 1 ] && [ -z "$1" ]; }; then
+    echo 'usage: tm [session-name]' >&2
+    return 2
+  fi
+  if ! command -v tmux >/dev/null 2>&1; then
+    echo 'tm: tmuxが見つかりません' >&2
+    return 127
+  fi
+
+  if [ -n "${TMUX:-}" ]; then
+    [ "$#" -gt 0 ] || return 0
+    tmux has-session -t "=$1" 2>/dev/null || tmux new-session -d -s "$1" || return
+    tmux switch-client -t "=$1"
+  elif [ "$#" -gt 0 ]; then
+    tmux new-session -A -s "$1"
+  else
+    tmux attach-session 2>/dev/null || tmux new-session
+  fi
 }
 
 #---------------------------------------------------------------
